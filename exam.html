@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>定期試験</title>
+<style>
+:root{
+  --bg:#eef1f5; --paper:#ffffff; --ink:#1b2129; --sub:#5d6775; --line:#d6dce4;
+  --accent:#1f5fae; --accent-ink:#ffffff;
+  --l0:#1b2129; --l1:#c27400; --l2:#c62828;
+  --ok:#1d7a5a; --warn:#b26a00; --bad:#c62828;
+  --mono:ui-monospace,"SFMono-Regular","Menlo","Consolas",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  font-size:17px; line-height:1.75;
+  -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
+}
+input,textarea{-webkit-user-select:text; user-select:text; font:inherit; color:inherit}
+button{font:inherit; cursor:pointer}
+button:disabled{opacity:.6; cursor:progress}
+[hidden]{display:none !important}
+.screen{display:none}
+.screen.on{display:block}
+
+/* ---------- 受付・案内 ---------- */
+.card{max-width:640px; margin:6vh auto; padding:32px 28px; background:var(--paper); border:1px solid var(--line); border-radius:14px}
+.card h1{font-size:1.5rem; margin:0 0 4px; letter-spacing:.02em}
+.card .meta{color:var(--sub); margin:0 0 24px}
+.form{display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; margin-bottom:22px}
+.form label{display:flex; flex-direction:column; font-size:.9rem; color:var(--sub); gap:4px}
+.form label.wide{grid-column:1 / -1}
+.form input{padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:1.05rem; background:#fff}
+.form input:focus{outline:2px solid var(--accent); outline-offset:-1px}
+.code-input{font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.rules{margin:0 0 22px; padding:14px 16px 14px 34px; background:#f6f8fb; border-radius:10px; font-size:.95rem}
+.rules li{margin:2px 0}
+.err{color:var(--bad); min-height:1.6em; margin:0 0 8px; font-size:.95rem}
+.primary{background:var(--accent); color:var(--accent-ink); border:0; border-radius:10px; padding:12px 22px; font-weight:600}
+.primary:hover{filter:brightness(1.08)}
+.primary.big{width:100%; padding:16px; font-size:1.1rem}
+.danger{background:var(--bad)}
+.ghost{background:transparent; border:1px solid var(--line); border-radius:10px; padding:10px 18px; color:var(--ink)}
+.linkish{background:none; border:0; color:var(--sub); font-size:.85rem; text-decoration:underline; padding:4px}
+
+/* ---------- 試験中 ---------- */
+.bar{
+  position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:18px;
+  padding:10px 22px; color:#fff; background:var(--l0); transition:background .3s;
+}
+body[data-level="1"] .bar{background:var(--l1)}
+body[data-level="2"] .bar{background:var(--l2)}
+.bar-title{font-weight:600; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bar-who{opacity:.9; white-space:nowrap}
+.bar-time{font-variant-numeric:tabular-nums; font-size:1.25rem; font-weight:700; white-space:nowrap}
+.bar-time .lbl{font-size:.8rem; font-weight:400; opacity:.85; margin-right:6px}
+.bar.late .bar-time{color:#ffd54f}
+.bar-away{font-weight:700; padding:2px 12px; border-radius:999px; background:rgba(255,255,255,.18); white-space:nowrap}
+.bar-net{font-size:.85rem; font-weight:700; padding:2px 10px; border-radius:999px; background:#ffd54f; color:#3a2a00; white-space:nowrap}
+#frame{position:fixed; inset:0; pointer-events:none; z-index:20; transition:box-shadow .3s}
+body[data-level="1"] #frame{box-shadow:inset 0 0 0 7px var(--l1)}
+body[data-level="2"] #frame{box-shadow:inset 0 0 0 10px var(--l2)}
+
+.paper{max-width:860px; margin:24px auto 0; padding:0 20px}
+.q{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:20px 24px; margin-bottom:18px}
+.qhead{display:flex; align-items:baseline; gap:10px; margin-bottom:6px}
+.qno{font-weight:700; font-size:1.1rem}
+.pts{color:var(--sub); font-size:.85rem}
+.hint{color:var(--sub); font-size:.85rem; margin-left:auto}
+.qtext{margin-bottom:12px}
+.opts{display:flex; flex-direction:column; gap:8px}
+.opt{display:flex; align-items:flex-start; gap:12px; padding:10px 14px; border:1px solid var(--line); border-radius:10px; cursor:pointer}
+.opt:hover{background:#f6f8fb}
+.opt input{margin-top:.45em; width:18px; height:18px; flex:none}
+.opt .mark{font-weight:700; min-width:1.4em}
+.opt:has(input:checked){border-color:var(--accent); background:#eef4fc}
+.numrow{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.numrow input{width:12em; padding:8px 12px; border:1px solid var(--line); border-radius:8px; font-size:1.05rem; font-variant-numeric:tabular-nums}
+.q textarea{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; resize:vertical; line-height:1.7}
+.q input:focus,.q textarea:focus{outline:2px solid var(--accent); outline-offset:-1px}
+.submit-row{max-width:860px; margin:0 auto; padding:8px 20px 60px; display:flex; align-items:center; justify-content:flex-end; gap:16px; color:var(--sub)}
+.saved{font-size:.8rem; opacity:0; transition:opacity .4s}
+.saved.on{opacity:1}
+
+/* ---------- モーダル ---------- */
+.modal{position:fixed; inset:0; z-index:30; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(20,24,30,.55)}
+.modal.on{display:flex}
+#guard,#gate{background:#14181e}
+.dialog{background:var(--paper); border-radius:14px; padding:28px; max-width:520px; width:100%}
+.dialog h2{margin:0 0 10px; font-size:1.3rem}
+.dialog p{margin:0 0 12px}
+.dialog .actions{display:flex; gap:12px; justify-content:flex-end; margin-top:18px; flex-wrap:wrap}
+.who-big{font-size:1.35rem; font-weight:700; margin:4px 0 14px !important}
+.notice{background:#fdf1dc; color:#6b4300; border-radius:10px; padding:10px 14px; font-size:.95rem}
+.guard-count{font-size:3rem; font-weight:800; color:var(--l2); line-height:1.2; margin:6px 0 10px}
+.guard-count small{font-size:1rem; font-weight:600; color:var(--sub); margin-left:6px}
+.pinrow input{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:1.2rem; letter-spacing:.3em; text-align:center}
+
+/* ---------- 提出後 ---------- */
+.done{text-align:center}
+.done h1{margin:0 0 8px}
+.status{display:inline-block; padding:6px 16px; border-radius:999px; font-weight:600; margin:10px 0 12px; background:#f0f2f5}
+.status.ok{background:#e3f3ec; color:var(--ok)}
+.status.warn{background:#fdf1dc; color:var(--warn)}
+.status.bad{background:#fbe3e3; color:var(--bad)}
+.summary{color:var(--sub); margin:0 0 12px}
+.help{margin:0 0 16px; font-weight:600}
+.done .actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+/* ---------- 作成画面 ---------- */
+.build{max-width:960px; margin:24px auto 60px; padding:0 20px; -webkit-user-select:text; user-select:text}
+.build h1{font-size:1.4rem; margin:0 0 6px}
+.build .note{color:var(--sub); margin:0 0 16px}
+.tools{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px}
+.filebtn{display:inline-flex; align-items:center}
+#b-json{width:100%; height:340px; font-family:var(--mono); font-size:.85rem; line-height:1.55; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff; margin-bottom:16px}
+.result{background:var(--paper); border:2px solid var(--ok); border-radius:12px; padding:18px 22px; margin:18px 0}
+.result h2{margin:0 0 8px; font-size:1.1rem}
+.result .big{font-family:var(--mono); font-size:1.6rem; font-weight:700; letter-spacing:.12em}
+.result dl{display:grid; grid-template-columns:max-content 1fr; gap:4px 16px; margin:0 0 10px}
+.result dt{color:var(--sub)}
+.result dd{margin:0}
+
+@media (max-width:640px){
+  .bar{flex-wrap:wrap; gap:6px 14px; padding:8px 14px}
+  .bar-title{flex-basis:100%}
+  .form{grid-template-columns:1fr}
+  .q{padding:16px}
+}
+</style>
+</head>
+<body data-level="0">
+
+<!-- 読み込み中 -->
+<section id="scr-loading" class="screen on">
+  <div class="card"><p style="margin:0">読み込んでいます…</p></div>
+</section>
+
+<!-- 試験データなし -->
+<section id="scr-none" class="screen">
+  <div class="card">
+    <h1 id="none-title">試験を開けません</h1>
+    <p id="none-msg">このファイルには試験データが入っていません。教員は、このファイルの URL の末尾に <code>#build</code> を付けて開き、試験ファイルを作ってください。</p>
+    <p style="text-align:right;margin:14px 0 0"><button class="linkish" data-admin="" hidden="">監督者メニュー</button></p>
+  </div>
+</section>
+
+<!-- 受付 -->
+<section id="scr-entry" class="screen">
+  <div class="card">
+    <h1 id="ttl"></h1>
+    <p class="meta" id="meta"></p>
+    <div class="form">
+      <label class="wide mode-token">受験票番号<input id="f-token" class="code-input" autocomplete="off" spellcheck="false"></label>
+      <label class="mode-self">組<input id="f-cls" autocomplete="off"></label>
+      <label class="mode-self">番号<input id="f-no" inputmode="numeric" autocomplete="off"></label>
+      <label class="wide mode-self">氏名<input id="f-name" autocomplete="off"></label>
+      <label class="wide">開始コード（監督者の指示を待つ）<input id="f-code" class="code-input" autocomplete="off" spellcheck="false"></label>
+    </div>
+    <ul class="rules">
+      <li>開始すると画面が全画面になります。</li>
+      <li>試験中に全画面を解除したり、他のタブやアプリに切り替えたりすると、時刻とともに記録されます。</li>
+      <li>記録は回答と一緒に提出されます。誤って画面を離れたときは、監督者に申し出てください。</li>
+      <li>回答はこの端末に自動保存されます。</li>
+    </ul>
+    <p class="notice" id="entry-warn" hidden=""></p>
+    <p class="err" id="entry-err"></p>
+    <button id="btn-next" class="primary big">次へ</button>
+    <p style="text-align:right;margin:14px 0 0"><button class="linkish" data-admin="">監督者メニュー</button></p>
+  </div>
+</section>
+
+<!-- 試験中 -->
+<section id="scr-exam" class="screen">
+  <header class="bar" id="bar">
+    <div class="bar-title" id="bar-title"></div>
+    <div class="bar-who" id="bar-who"></div>
+    <div class="bar-time"><span class="lbl">残り</span><span id="time">--:--</span></div>
+    <div class="bar-net" id="bar-net" hidden="">通信待ち</div>
+    <div class="bar-away" id="bar-away">離脱 0</div>
+  </header>
+  <main class="paper" id="qs"></main>
+  <div class="submit-row">
+    <span class="saved" id="saved">自動保存しました</span>
+    <span id="progress"></span>
+    <button class="primary" id="btn-submit">提出する</button>
+  </div>
+</section>
+
+<!-- 提出後 -->
+<section id="scr-done" class="screen">
+  <div class="card done">
+    <h1>提出しました</h1>
+    <div class="status" id="d-status"></div>
+    <p class="summary" id="d-summary"></p>
+    <p class="help" id="d-help"></p>
+    <div class="actions">
+      <button class="primary" id="btn-retry" hidden="">今すぐ再送する</button>
+      <button class="ghost" id="btn-download" hidden="">データを保存する</button>
+    </div>
+    <p style="margin:22px 0 0"><button class="linkish" data-admin="">監督者メニュー</button></p>
+  </div>
+</section>
+
+<!-- 作成画面（#build） -->
+<section id="scr-build" class="screen">
+  <div class="build">
+    <h1>試験ファイルの作成</h1>
+    <p class="note">問題を書いた JSON から、問題を暗号化した試験ファイルを作ります。問題は配るファイルには平文で入らず、開始コードがないと読めません。作成に使った JSON は配らずに手元で保管してください。</p>
+    <div class="tools">
+      <label class="ghost filebtn">JSON を読み込む<input type="file" id="b-file" accept=".json,application/json" hidden=""></label>
+      <button class="ghost" id="b-sample">ひな形を入れる</button>
+      <button class="ghost" id="b-preview-btn">問題をプレビュー</button>
+    </div>
+    <textarea id="b-json" spellcheck="false" placeholder="ここに試験の JSON を貼り付けるか、「JSON を読み込む」「ひな形を入れる」を使ってください。"></textarea>
+    <div class="form">
+      <label>開始コード（空欄にして自動で作るのがおすすめ。自分で決めるなら8文字以上）<input id="b-code" class="code-input" autocomplete="off" spellcheck="false"></label>
+      <label>監督者の暗証番号（4桁以上の数字。空欄なら6桁を自動で作る）<input id="b-pin" inputmode="numeric" autocomplete="off"></label>
+    </div>
+    <p class="err" id="b-err"></p>
+    <button class="primary" id="b-build">暗号化して試験ファイルを保存する</button>
+    <div class="result" id="b-result" hidden=""></div>
+    <div id="b-preview" class="paper" style="padding:0;margin-top:20px"></div>
+  </div>
+</section>
+
+<div id="frame"></div>
+
+<!-- 受験者の確認 -->
+<div class="modal" id="begin">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="begin-h">
+    <h2 id="begin-h">受験者の確認</h2>
+    <p class="who-big" id="bg-who"></p>
+    <p class="notice" id="bg-msg" hidden=""></p>
+    <div class="pinrow" id="bg-pin-row" hidden=""><input id="bg-pin" type="password" inputmode="numeric" autocomplete="off" placeholder="監督者の暗証番号"></div>
+    <p class="err" id="bg-err"></p>
+    <div class="actions">
+      <button class="ghost" id="btn-bg-cancel">戻る</button>
+      <button class="primary" id="btn-begin">試験を開始する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 提出確認 -->
+<div class="modal" id="confirm">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-h">
+    <h2 id="confirm-h">提出しますか</h2>
+    <p id="c-msg"></p>
+    <p>提出すると、回答は変更できません。</p>
+    <div class="actions">
+      <button class="ghost" id="btn-cancel">戻る</button>
+      <button class="primary" id="btn-ok">提出する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 全画面の要求（離脱には数えない） -->
+<div class="modal" id="gate">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="gate-h">
+    <h2 id="gate-h">全画面にしてください</h2>
+    <p>試験は全画面で受けます。下のボタンを押すと問題が表示されます。</p>
+    <p class="err" id="gate-err"></p>
+    <div class="actions"><button class="primary" id="btn-gate">全画面にする</button></div>
+  </div>
+</div>
+
+<!-- 離脱時の画面 -->
+<div class="modal" id="guard">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="guard-h">
+    <h2 id="guard-h">試験画面から離れました</h2>
+    <div class="guard-count"><span id="g-count">1</span><small>回目</small></div>
+    <p>この操作は時刻とともに記録され、回答と一緒に提出されます。問題は試験に戻るまで表示されません。</p>
+    <div class="pinrow" id="g-pin-row" hidden="">
+      <p><b>監督者を呼んでください。</b>再開には監督者の暗証番号が必要です。</p>
+      <input id="g-pin" type="password" inputmode="numeric" autocomplete="off">
+    </div>
+    <p class="err" id="g-err"></p>
+    <div class="actions"><button class="primary" id="btn-resume">試験に戻る</button></div>
+  </div>
+</div>
+
+<!-- 監督者メニュー -->
+<div class="modal" id="admin">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="admin-h">
+    <h2 id="admin-h">監督者メニュー</h2>
+    <p>この端末の受験データを保存したり、消去して受付画面に戻したりします。消去はサーバーに「端末リセット」として記録されます。</p>
+    <div class="pinrow"><input id="a-pin" type="password" inputmode="numeric" autocomplete="off" placeholder="暗証番号"></div>
+    <p class="err" id="a-err"></p>
+    <div class="actions">
+      <button class="ghost" id="btn-a-download">データを保存</button>
+      <button class="ghost" id="btn-a-cancel">閉じる</button>
+      <button class="primary danger" id="btn-a-reset">消去する</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   このファイルを直接編集する必要はありません。
+   試験ファイルは、URL の末尾に #build を付けて開いた作成画面で作ります。
+   ===================================================================== */
+const TEMPLATE = document.documentElement.outerHTML;   // 作成画面で試験ファイルを書き出すときの元
+const CONFIG = /*CONFIG-BEGIN*/{"v":3,"id":"2026-2gakki-chukan-butsuri","title":"2学期中間考査　物理基礎","durationMin":50,"submitUrl":"","useToken":false,"shuffleOptions":true,"requirePinAfter":2,"endsAt":0,"nQ":4,"builtAt":"2026-10-28T04:29:37.923Z","kdf":{"salt":"I9ChloenaIs2XRNwwg0Gjw==","iter":300000},"sealed":{"iv":"sJBbJNwUy6+NAw3f","ct":"nTemYboZeAotkOK6LTc+v7d1XL/xy9ACMvFqHrxoSYsyik5l07W2qHbrVBqcI+c3IYipj6Y421c1pLpGcDgVG/yWb2yFKGU1DFDdEaqBla1fWi4NjT5jfeYv38ikjkYjDv5a3MClKPbEyU0TzoS9rX9KzpOFVuqJztNJ8gf3VHTe0zSsrEvLArvOxwrqNhGroObuJtEW7SXr2kuZs6Wba3ZEWtE7Am0HgkyDkxV1RMT7Bd3Q1bf5m023KJTcI03g+OZXn3MdP87wqDIffwhI+P9lYMR1kkNp8YJg/DGJHvEjmQdDzMn0m/UXjOAGR3Y20uxEv2jal2/nAUCYqaNi5xD8GSuUhN8FBnublkm2sI59Nxv6mHr2swggYLkf3SyiFFD6vUN71b2Jw0/cZw6KJ9k2gvXr4hBfpL3rN4nApUb2G3PfOlGG0jYrx9KbozbyVZHbK0KvbqGoyQhyGepxDQhByMqBNpaseSyOG5LguVC31NdpgpLhq3jvzATvqpDuDoA2Ov7GgENfk2/mscGjsBb2FyMpv3b+TPevEdB00L8jTA5UkDyaKG7jGm/XdQXr4pywF7Vg21qSysnrJLkEd5tTdZY7i3Xa4fo9ESmkRbhpeBH9ToE5i/Vlh/j0+yLHm6C7bh+7bbBvInH5h7T0PAP4VGyFFrNTLllJLVud22H8xnpPiof4vKdncsdavMsO6Lbd+oVRt4xiv4agWfIxeSw1bvvs0e9MDg0bCKuUMbI6FAhESVav+vVq4JIdkQMh5u3burvSgt22bfl3nDE+4zfmhWxc9lf/TAvDS8K4wFgwZkMYXrtA0XODQDgcK7fs1a12sGDJhMHIO5RSJdXZlK/IPwFcIjNJMxLunOxi/gAoaG/b+Pd0EV5K1GNQG6r0KoX7ahpGDZKWKB8EVjQlLgSrNAAOsIkIkE6d4mLCkKkyaw4IfzDUlffdNeNjwhMig4BkSWFibtM9LQstCfp5MjZW1BVARS0dpxmIHjjrHRAnqefNVEt5UuJGBL73u3mXkmX0twxu74ub9ttUXwG7S5U6yYbApkhxjYZ59aApryTts9TUvbzMQHDLl60bUcwCke2dGaVilqnYLZWitl2TRBlKGase0WiscreqqwOunqiMK+Hnq4Z38X8fiw9gCYbjPbEb/Qzerj/ozcnyZfgP9HoAHfifeGmY8ZWF0RW4YlS9slZnv5fHa6TnOvZ1D0hLMh1U8ZK8KL7pzx+2wsVPBFGlD1oKXNvV++ewNNEHlMoTKJoG39nXhpir/8dbKFuUxOrws5f+y92fV3r+fd0TwFymu+yoBUXWBME6v+XaWO/DFiCTScRqfn+cgGyWomS3lK0yJgVbj1jgJ0vkwO/0dRUzlKeNDLfBYOQzc3YyV5SPLhAtgBnf+kL5JKGrF8CLP8O6CeKOFGcchUshxLxpQYxMLEsdS1yHFkQzlrp1X4gpw53i4WK04VP0SmKabTLI21kpOaz6JgJZA2lvoxxFYnUpJ/8="},"pin":{"salt":"4RLYXJKB0IcyjIYvEnqL+Q==","iter":100000,"hash":"91219c9edeeaf5b3a0875d047068e5f9b8b2e0ea63484c68e33086d29d9c935e"}}/*CONFIG-END*/;
+
+const KDF_ITER = 300000;      // 開始コード → 鍵（PBKDF2-SHA256）
+const PIN_ITER = 100000;      // 暗証番号の照合（PBKDF2-SHA256）
+const LABELS = "アイウエオカキクケコ".split("");
+const ALPHA = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";   // 見間違えやすい I L O 0 1 を除く
+const APP_VERSION = 3;
+const SERVER_MIN = 3;         // この版以上の exam-receiver.gs が必要
+const TIMEUP_SPREAD = 20000;  // 時間切れの提出を 0〜20 s ずらす
+const BUILD = location.hash === "#build";
+// 作り直した試験（同じ id でも）と端末の保存データが混ざらないよう、作成ごとに別の保存領域を使う
+const KEY = "exam-app:" + (CONFIG ? CONFIG.id + ":" + CONFIG.sealed.iv : "none");
+const $ = s => document.querySelector(s);
+const now = () => Date.now();
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let QUESTIONS = [];
+let BLOCKED = false;          // 同じ試験が別のタブで開かれているときは、このタブでは何も記録しない
+
+/* ---------- 小道具 ---------- */
+const te = new TextEncoder(), td = new TextDecoder();
+function toB64(u8){ let s = ""; for(let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+function fromB64(s){ const b = atob(s), u = new Uint8Array(b.length); for(let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+function toHex(u8){ return Array.from(u8, b => b.toString(16).padStart(2, "0")).join(""); }
+function rand(n){ return crypto.getRandomValues(new Uint8Array(n)); }
+function uid(){ try{ if(crypto.randomUUID) return crypto.randomUUID(); }catch(e){} return toHex(rand(16)); }
+function normCode(s){ return String(s || "").normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, ""); }
+function fmtCode(c){ const n = c.length <= 6 ? 3 : 4; return (c.match(new RegExp(".{1," + n + "}", "g")) || []).join("-"); }
+function randCode(n){ return Array.from(crypto.getRandomValues(new Uint32Array(n)), x => ALPHA[x % ALPHA.length]).join(""); }
+function randDigits(n){ return Array.from(crypto.getRandomValues(new Uint32Array(n)), x => String(x % 10)).join(""); }
+function saveFile(text, name, type){
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+/* ---------- 暗号 ---------- */
+async function pbkdf2(secret, salt, iter){
+  const k = await crypto.subtle.importKey("raw", te.encode(secret), "PBKDF2", false, ["deriveBits"]);
+  return new Uint8Array(await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: iter }, k, 256));
+}
+async function aesKey(code, salt, iter, usage){
+  return crypto.subtle.importKey("raw", await pbkdf2(code, salt, iter), "AES-GCM", false, usage);
+}
+async function unseal(code){
+  const k = await aesKey(code, fromB64(CONFIG.kdf.salt), CONFIG.kdf.iter, ["decrypt"]);
+  const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(CONFIG.sealed.iv) }, k, fromB64(CONFIG.sealed.ct));
+  return JSON.parse(td.decode(pt));
+}
+async function verifyPin(pin){
+  if(!CONFIG.pin) return true;
+  const p = String(pin || "").normalize("NFKC").trim();
+  if(!p) return false;
+  return toHex(await pbkdf2(p, fromB64(CONFIG.pin.salt), CONFIG.pin.iter)) === CONFIG.pin.hash;
+}
+
+/* ---------- 状態 ---------- */
+function fresh(){
+  return { phase: "entry", code: null, student: null, startAt: null, submissionId: null, starts: 0, offlineStart: false,
+           answers: {}, log: [], awayCount: 0, awayMs: 0, away: null, submitted: null,
+           outbox: [], sent: false, attempts: 0, holdUntil: 0, rejected: null, dropped: 0, backedUp: "{}", backupAt: 0 };
+}
+function load(){
+  if(BUILD || !CONFIG) return fresh();
+  try{ const t = localStorage.getItem(KEY); if(t) return Object.assign(fresh(), JSON.parse(t)); }catch(e){}
+  return fresh();
+}
+let S = load();
+function save(){
+  if(BUILD || !CONFIG || BLOCKED) return false;
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); return true; }catch(e){ return false; }
+}
+function active(){ return !BUILD && !BLOCKED && !!CONFIG && S.phase === "exam" && !S.submitted; }
+function storageOk(){
+  try{ const k = KEY + ":probe"; localStorage.setItem(k, "1"); localStorage.removeItem(k); return true; }catch(e){ return false; }
+}
+// 同じ試験を同じ端末の2つのタブで開くと、古い状態のタブが回答を上書きする。最初のタブだけが動くようにする
+function acquireTabLock(){
+  if(!navigator.locks || !navigator.locks.request) return Promise.resolve(true);
+  return new Promise(res => {
+    navigator.locks.request(KEY, { ifAvailable: true }, lock => {
+      if(!lock){ res(false); return; }
+      res(true);
+      return new Promise(() => {});     // ページを閉じるまで持ち続ける
+    }).catch(() => res(true));
+  });
+}
+function logEvt(type, detail){
+  if(!active()) return;
+  S.log.push({ t: now(), type, detail: detail ?? null });
+  if(S.log.length > 2000) S.log.splice(0, S.log.length - 2000);
+  save();
+}
+function show(id){ document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id)); }
+function whoText(st){
+  if(!st) return "";
+  if(st.name) return `${String(st.cls).replace(/組$/, "")}組 ${String(st.no).replace(/番$/, "")}番 ${st.name}`;
+  return st.token ? "受験票 " + fmtCode(st.token) : "";
+}
+
+/* ---------- モーダル ---------- */
+function isOpen(id){ return $("#" + id).classList.contains("on"); }
+function syncInert(){
+  // 離脱画面などの裏にある問題や入力欄には、Tab キーでも届かないようにする
+  $("#scr-exam").inert = ["guard", "gate", "confirm"].some(isOpen);
+  $("#scr-entry").inert = isOpen("begin") || isOpen("admin");
+  $("#scr-done").inert = isOpen("admin");
+}
+function openModal(id){
+  const m = $("#" + id);
+  m.classList.add("on"); syncInert();
+  const f = [...m.querySelectorAll("input, button.primary")].find(el => el.offsetParent !== null);
+  if(f) setTimeout(() => f.focus(), 0);
+}
+function closeModal(id){ $("#" + id).classList.remove("on"); syncInert(); }
+
+/* ---------- 選択肢の並べ替え（生徒ごとに一定） ---------- */
+function hash32(str){ let h = 2166136261; for(let i = 0; i < str.length; i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function mulberry32(a){ return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function shuffled(q){ return q.shuffle === undefined ? !!(CONFIG && CONFIG.shuffleOptions) : !!q.shuffle; }
+// 表示する順番（元の選択肢の番号の並び）。記録する答えは常に元の記号（ア＝1番目の選択肢）
+function optionOrder(q, seed){
+  const idx = q.options.map((_, j) => j);
+  if(!seed || !shuffled(q)) return idx;
+  const r = mulberry32(hash32(seed + ":" + q.id));
+  for(let i = idx.length - 1; i > 0; i--){ const j = Math.floor(r() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  return idx;
+}
+function ordersFor(seed){
+  const o = {};
+  QUESTIONS.forEach(q => { if(q.options && shuffled(q)) o[q.id] = optionOrder(q, seed).map(j => LABELS[j]).join(""); });
+  return o;
+}
+
+/* ---------- 問題の描画と回答 ---------- */
+function renderQuestions(wrap, qs, seed){
+  wrap.innerHTML = "";
+  qs.forEach((q, i) => {
+    const sec = document.createElement("section");
+    sec.className = "q";
+    const hint = q.type === "multi" ? '<span class="hint">あてはまるものをすべて選ぶ</span>' : "";
+    let body;
+    if(q.type === "choice" || q.type === "multi"){
+      const t = q.type === "choice" ? "radio" : "checkbox";
+      body = '<div class="opts">' + optionOrder(q, seed).map((j, k) =>
+        `<label class="opt"><input type="${t}" name="${q.id}" value="${LABELS[j]}"><span class="mark">${LABELS[k]}</span><span>${q.options[j]}</span></label>`
+      ).join("") + "</div>";
+    }else if(q.type === "number"){
+      body = `<div class="numrow">${q.label || ""}<input type="text" inputmode="decimal" name="${q.id}" maxlength="40" autocomplete="off" spellcheck="false">${q.unit ? `<span>${q.unit}</span>` : ""}</div>`;
+    }else{
+      const max = Math.min(Number(q.maxLength) || 4000, 20000);
+      body = `<textarea name="${q.id}" rows="${Number(q.rows) || 5}" maxlength="${max}" spellcheck="false"></textarea>`;
+    }
+    sec.innerHTML = `<div class="qhead"><span class="qno">問${i + 1}</span>${q.points ? `<span class="pts">${q.points}点</span>` : ""}${hint}</div><div class="qtext">${q.text}</div>${body}`;
+    wrap.appendChild(sec);
+  });
+}
+function collect(){
+  const w = $("#qs"), a = {};
+  for(const q of QUESTIONS){
+    if(q.type === "choice"){
+      const c = w.querySelector(`input[name="${q.id}"]:checked`);
+      a[q.id] = c ? c.value : "";
+    }else if(q.type === "multi"){
+      a[q.id] = [...w.querySelectorAll(`input[name="${q.id}"]:checked`)].map(x => x.value)
+        .sort((x, y) => LABELS.indexOf(x) - LABELS.indexOf(y)).join("");
+    }else{
+      const el = w.querySelector(`[name="${q.id}"]`);
+      const v = el ? el.value : "";
+      a[q.id] = q.type === "number" ? normNum(v) : v.trim();
+    }
+  }
+  return a;
+}
+// 数値の答えは全角の英数字・記号といろいろな「マイナス」だけをそろえる（３．０ → 3.0、−2 → -2）。
+// NFKC は使わない：10³ が 103 に、² が 2 に変わってしまうため
+function normNum(v){
+  return String(v).replace(/[！-～]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
+    .replace(/[−‐-―ーｰ]/g, "-").replace(/[\s　]+/g, "");
+}
+function restore(a){
+  const w = $("#qs");
+  for(const q of QUESTIONS){
+    const v = a[q.id]; if(!v) continue;
+    if(q.type === "choice" || q.type === "multi"){
+      w.querySelectorAll(`input[name="${q.id}"]`).forEach(x => { x.checked = v.includes(x.value); });
+    }else{
+      const el = w.querySelector(`[name="${q.id}"]`); if(el) el.value = v;
+    }
+  }
+}
+function answeredCount(a){ return QUESTIONS.filter(q => a[q.id]).length; }
+function updateProgress(){ $("#progress").textContent = `回答 ${answeredCount(S.answers)} / ${QUESTIONS.length} 問`; }
+
+let savedTimer = null;
+function onInput(){
+  if(!active()) return;
+  S.answers = collect();
+  const ok = save(); updateProgress();
+  $("#saved").textContent = ok ? "自動保存しました" : "この端末に保存できませんでした";
+  $("#saved").classList.add("on");
+  clearTimeout(savedTimer); savedTimer = setTimeout(() => $("#saved").classList.remove("on"), 1200);
+}
+function onChange(e){
+  if(!active() || !e.target.name) return;
+  const q = QUESTIONS.find(x => x.id === e.target.name);
+  if(q && q.type === "number"){ const n = normNum(e.target.value); if(n !== e.target.value) e.target.value = n; }
+  onInput();
+  // 回答の変化を時刻つきで残す（復帰した直後に答えを変えた、などが後から分かる）
+  const v = S.answers[e.target.name] || "";
+  logEvt("answer", q && q.type === "text" ? { q: e.target.name, len: v.length } : { q: e.target.name, v });
+}
+
+/* ---------- 全画面 ---------- */
+async function enterFS(){
+  if(!document.fullscreenElement && document.fullscreenEnabled){
+    try{ await document.documentElement.requestFullscreen({ navigationUI: "hide" }); }
+    catch(e){ logEvt("fullscreen-fail", String(e)); }
+  }
+  try{ if(navigator.keyboard && navigator.keyboard.lock) await navigator.keyboard.lock(["Escape"]); }catch(e){}
+}
+async function leaveFS(){
+  try{ if(navigator.keyboard && navigator.keyboard.unlock) navigator.keyboard.unlock(); }catch(e){}
+  try{ if(document.fullscreenElement) await document.exitFullscreen(); }catch(e){}
+}
+function fsMissing(){ return document.fullscreenEnabled && !document.fullscreenElement; }
+
+/* ---------- 離脱の検知 ---------- */
+let graceUntil = 0;   // 全画面に戻した直後の一時的な blur は、猶予が終わってから確かめ直す
+
+function needPinNow(){ return CONFIG.requirePinAfter > 0 && S.awayCount >= CONFIG.requirePinAfter; }
+function applyLevel(){
+  const n = S.awayCount;
+  document.body.dataset.level = n === 0 ? 0 : n === 1 ? 1 : 2;
+  $("#bar-away").textContent = "離脱 " + n;
+}
+function leave(cause){
+  if(!active()) return;
+  logEvt(cause);
+  if(cause === "blur" && now() < graceUntil) return;   // 猶予後に watchdog がフォーカスを確かめる
+  if(S.away){ S.away.causes.push(cause); save(); return; }
+  S.away = { start: now(), causes: [cause] };
+  S.awayCount++;
+  save(); applyLevel(); showGuard();
+  queue("event", { type: "leave", cause });
+}
+function showGuard(){
+  $("#g-count").textContent = S.awayCount;
+  $("#g-pin-row").hidden = !needPinNow();
+  $("#g-pin").value = "";
+  $("#g-err").textContent = "";
+  openModal("guard");
+}
+let resuming = false;
+async function resume(){
+  if(resuming) return; resuming = true;
+  try{
+    const pinNeeded = needPinNow();
+    if(pinNeeded && !(await verifyPin($("#g-pin").value))){
+      $("#g-err").textContent = "暗証番号が違います。";
+      logEvt("pin-wrong");
+      return;
+    }
+    graceUntil = now() + 1000;
+    await enterFS();
+    if(fsMissing()){ $("#g-err").textContent = "全画面にできませんでした。もう一度押してください。"; return; }
+    if(pinNeeded){ $("#g-pin").value = ""; logEvt("pin", "resume"); queue("event", { type: "pin", cause: "resume" }); }
+    closeAway("return");
+    closeModal("guard"); closeModal("gate");
+  }finally{ resuming = false; }
+}
+function closeAway(type){
+  if(!S.away) return;
+  const ms = now() - S.away.start;
+  S.awayMs += ms;
+  logEvt(type, { ms, causes: S.away.causes });
+  queue("event", { type, ms });
+  S.away = null; save();
+}
+async function onGate(){
+  graceUntil = now() + 1000;
+  await enterFS();
+  if(fsMissing()){ $("#gate-err").textContent = "全画面にできませんでした。もう一度押してください。"; return; }
+  logEvt("gate-ok");
+  closeModal("gate");
+}
+// 1秒ごとに、イベントの取りこぼしがないか確かめる
+function watchdog(){
+  if(!active() || S.away || now() < graceUntil || isOpen("gate")) return;
+  if(!document.hasFocus()) leave("nofocus");
+  else if(fsMissing()) leave("fullscreen-exit");
+}
+
+document.addEventListener("fullscreenchange", () => {
+  if(document.fullscreenElement) logEvt("fullscreen-enter");
+  else leave("fullscreen-exit");
+});
+document.addEventListener("visibilitychange", () => {
+  if(document.hidden) leave("hidden"); else logEvt("visible");
+});
+window.addEventListener("blur", () => leave("blur"));
+window.addEventListener("focus", () => logEvt("focus"));
+["copy", "cut", "paste", "contextmenu", "dragstart", "drop"].forEach(t =>
+  document.addEventListener(t, e => {
+    if(!active()) return;
+    e.preventDefault(); logEvt("blocked-" + t);
+  })
+);
+document.addEventListener("keydown", e => {
+  if(!active()) return;
+  const k = (e.key || "").toLowerCase();
+  if((e.ctrlKey || e.metaKey) && ["p", "s", "u", "f", "o", "c", "v", "x"].includes(k)){
+    e.preventDefault(); logEvt("blocked-key", "Ctrl+" + k.toUpperCase());
+  }
+});
+window.addEventListener("beforeprint", () => logEvt("print"));
+window.addEventListener("beforeunload", e => {
+  const unsent = !BUILD && !BLOCKED && CONFIG && CONFIG.submitUrl && S.submitted && !S.sent;
+  if(active() || unsent){ logEvt("unload"); e.preventDefault(); e.returnValue = ""; }
+});
+
+/* ---------- 時間 ---------- */
+let timerId = null;
+// 終わりの時刻：開始から試験時間が経ったときか、全体の終了時刻（endsAt）の早いほう
+function deadline(startAt){ return Math.min(startAt + CONFIG.durationMin * 60000, CONFIG.endsAt || Infinity); }
+function tick(){
+  if(!active()) return;
+  const rem = deadline(S.startAt) - now();
+  if(rem <= 0){ $("#time").textContent = "0:00"; doSubmit("timeup"); return; }
+  const m = Math.floor(rem / 60000), s = Math.floor(rem % 60000 / 1000);
+  $("#time").textContent = m + ":" + String(s).padStart(2, "0");
+  $("#bar").classList.toggle("late", rem < 5 * 60000);
+}
+// 通信できない状態が続くと、監督者から見えるようにバーに「通信待ち」を出す（Wi-Fi を切った場合など）
+function netBadge(){ $("#bar-net").hidden = !(CONFIG.submitUrl && S.outbox.length && S.attempts > 0); }
+// 途中の回答を、変わったときだけ最大 2 分ごとにサーバーへ預ける（端末が壊れて予備機に替えたときに引き継ぐため）
+const BACKUP_EVERY = 120000;
+function backup(){
+  if(!active() || !CONFIG.submitUrl) return;
+  const snap = JSON.stringify(S.answers);
+  if(snap === S.backedUp || now() - (S.backupAt || 0) < BACKUP_EVERY) return;
+  S.outbox = S.outbox.filter(i => i.type !== "backup");      // 送れていない古い控えは新しいものに置き換える
+  S.backedUp = snap; S.backupAt = now();
+  queue("event", { type: "backup", answers: S.answers });
+}
+function startTimer(){ clearInterval(timerId); tick(); timerId = setInterval(() => { tick(); watchdog(); netBadge(); backup(); }, 1000); }
+
+/* ---------- 通信（受信を確認できるまで再送する） ---------- */
+async function post(body, ms = 30000){
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), ms);
+  try{
+    const r = await fetch(CONFIG.submitUrl, { method: "POST", body: JSON.stringify(body), signal: ac.signal });
+    return await r.json();
+  }finally{ clearTimeout(t); }
+}
+function queue(kind, extra){
+  if(!CONFIG.submitUrl) return;
+  S.outbox.push({ kind, examId: CONFIG.id, eventId: uid(), submissionId: S.submissionId, student: S.student,
+                  at: now(), count: S.awayCount, ...extra });
+  save(); flush();
+}
+let flushing = false, flushTimer = null;
+function scheduleFlush(ms){ clearTimeout(flushTimer); flushTimer = setTimeout(flush, Math.max(0, ms)); }
+async function flush(){
+  if(BUILD || !CONFIG || !CONFIG.submitUrl || flushing || !S.outbox.length) return;
+  const wait = (S.holdUntil || 0) - now();
+  if(wait > 0){ scheduleFlush(wait); if(S.phase === "done") renderDone(); return; }
+  clearTimeout(flushTimer);
+  flushing = true;
+  let failed = false;
+  try{
+    while(S.outbox.length){
+      const item = S.outbox[0];
+      let r = null;
+      try{ r = await post(item); }catch(e){ r = null; }
+      if(r && r.ok){
+        S.outbox.shift();
+        if(item.kind === "submit"){ S.sent = true; S.rejected = null; }
+        S.attempts = 0; save();
+      }else if(r && r.retry !== true){
+        // サーバーが「受け付けない」と答えた（再送しても同じ）。記録だけのイベントは捨てて先へ進む。
+        // 提出は捨てずに残し、自動の再送を止めて監督者を呼ぶよう表示する
+        if(item.kind === "submit"){ S.rejected = String(r.error || "rejected"); save(); break; }
+        S.outbox.shift(); S.dropped = (S.dropped || 0) + 1; save();
+      }else{
+        S.attempts++; save(); failed = true; break;
+      }
+    }
+  }finally{
+    flushing = false;
+    if(S.phase === "done") renderDone();
+    if(failed){
+      const base = Math.min(30000, 2000 * 2 ** Math.min(S.attempts - 1, 4));   // 2, 4, 8, 16, 30 s
+      scheduleFlush(base * (0.5 + Math.random()));
+    }
+  }
+}
+window.addEventListener("online", () => flush());
+
+/* ---------- 開始 ---------- */
+let pending = null, busy = false;
+function entryErr(m){ $("#entry-err").textContent = m; }
+async function onNext(){
+  if(busy) return;
+  busy = true;
+  const btn = $("#btn-next");
+  btn.disabled = true; btn.textContent = "確認しています…"; entryErr("");
+  try{
+    let student;
+    if(CONFIG.useToken){
+      const token = normCode($("#f-token").value);
+      if(!token) return entryErr("受験票番号を入力してください。");
+      student = { token, cls: "", no: "", name: "" };
+    }else{
+      const cls = $("#f-cls").value.normalize("NFKC").trim();
+      const no = $("#f-no").value.normalize("NFKC").trim();
+      const name = $("#f-name").value.trim();
+      if(!cls || !no || !name) return entryErr("組・番号・氏名をすべて入力してください。");
+      student = { token: "", cls, no, name };
+    }
+    const code = normCode($("#f-code").value);
+    if(!code) return entryErr("開始コードを入力してください。");
+    let data;
+    try{ data = await unseal(code); }
+    catch(e){ return entryErr("開始コードが違います。監督者の指示を待ってください。"); }
+
+    let starts = 0, offline = false, firstStart = 0, backupAnswers = null;
+    if(CONFIG.submitUrl){
+      const r = await checkWithRetry(student, btn);
+      if(!r) offline = true;
+      else if(!r.ok){
+        if(r.error === "token") return entryErr("受験票番号が見つかりません。もう一度確かめてください。");
+        if(r.error === "submitted") return entryErr("この受験はすでに提出されています。監督者を呼んでください。");
+        if(r.retry) return entryErr("送信先が混み合っています。少し待ってから、もう一度押してください。");
+        return entryErr("送信先が受け付けませんでした（" + (r.error || "不明") + "）。監督者を呼んでください。");
+      }else{
+        if(r.student) student = { ...student, ...r.student };
+        starts = r.starts || 0;
+        firstStart = Number(r.firstStart) || 0;
+        if(r.backup && typeof r.backup === "object") backupAnswers = r.backup;
+      }
+    }
+    pending = { student, code, questions: data.questions, starts, offline, firstStart, backup: backupAnswers };
+    openBegin();
+  }finally{
+    busy = false; btn.disabled = false; btn.textContent = "次へ";
+  }
+}
+// 試験開始の合図で全員が一斉に押すと、Apps Script の同時実行の上限に当たることがある。少し待って確かめ直す
+async function checkWithRetry(student, btn){
+  const waits = [1000, 2000, 4000, 8000];
+  for(let i = 0; ; i++){
+    let r = null;
+    try{ r = await post({ kind: "check", examId: CONFIG.id, student }, 15000); }catch(e){ r = null; }
+    if(r && (r.ok || r.retry !== true)) return r;
+    if(i >= waits.length) return r;           // null：通信できない ／ retry：混み合ったまま
+    btn.textContent = "混み合っています。確認を続けています…";
+    await sleep(waits[i] * (0.5 + Math.random()));
+  }
+}
+// 2回目以降の開始は、最初の開始から時間を数える（端末を替えても試験時間が延びない）
+function plannedStart(p){ return p.starts > 0 && p.firstStart ? p.firstStart : now(); }
+function openBegin(){
+  const p = pending;
+  $("#bg-who").textContent = whoText(p.student) + (p.student.name ? " さん" : "");
+  let msg = "";
+  if(p.offline) msg = "送信先に接続できませんでした。監督者の暗証番号を入力すると、通信なしで開始できます。回答は、通信が戻ったときに送信されます。";
+  else if(p.starts > 0){
+    const left = Math.floor((deadline(plannedStart(p)) - now()) / 60000);
+    msg = `この受験は、すでに ${p.starts} 回開始されています。続けるには監督者の暗証番号が必要です。残り時間は最初の開始から数えます（残り約 ${Math.max(0, left)} 分）。` +
+      (p.backup ? "サーバーに預けてあった途中の回答を引き継ぎます。" : "");
+  }
+  $("#bg-msg").textContent = msg; $("#bg-msg").hidden = !msg;
+  $("#bg-pin-row").hidden = !(p.offline || p.starts > 0);
+  $("#bg-pin").value = ""; $("#bg-err").textContent = "";
+  openModal("begin");
+}
+async function onBegin(){
+  if(busy || !pending) return;
+  busy = true;
+  const btn = $("#btn-begin"); btn.disabled = true;
+  try{
+    const p = pending;
+    const pinNeeded = p.offline || p.starts > 0;
+    if(pinNeeded && !(await verifyPin($("#bg-pin").value))){
+      $("#bg-err").textContent = "暗証番号が違います。";
+      return;
+    }
+    const startAt = plannedStart(p);
+    if(deadline(startAt) <= now()){
+      $("#bg-err").textContent = CONFIG.endsAt && CONFIG.endsAt <= now()
+        ? "試験の終了時刻を過ぎているため、開始できません。"
+        : "最初の開始から試験時間が過ぎているため、開始できません。";
+      return;
+    }
+    pending = null;
+    S = Object.assign(fresh(), {
+      phase: "exam", code: p.code, student: p.student, startAt, submissionId: uid(),
+      starts: p.starts, offlineStart: p.offline
+    });
+    QUESTIONS = p.questions;
+    // 再開始のときは、サーバーに預けてあった途中の回答を引き継ぐ（今の問題にある答えだけ）
+    if(p.starts > 0 && p.backup){
+      QUESTIONS.forEach(q => { const v = p.backup[q.id]; if(typeof v === "string") S.answers[q.id] = v; });
+      S.backedUp = JSON.stringify(S.answers);
+    }
+    logEvt("start", { app: APP_VERSION, ua: navigator.userAgent, starts: p.starts, offline: p.offline,
+                      continuedFrom: p.starts > 0 && p.firstStart ? p.firstStart : null,
+                      restored: p.starts > 0 && p.backup ? Object.keys(p.backup).length : 0,
+                      orders: ordersFor(S.submissionId) });
+    save();
+    graceUntil = now() + 1000;
+    await enterFS();                      // ボタン操作の直後なので全画面を要求できる
+    closeModal("begin");
+    renderQuestions($("#qs"), QUESTIONS, S.submissionId);
+    restore(S.answers);
+    fillBar(); applyLevel(); updateProgress();
+    show("scr-exam"); window.scrollTo(0, 0);
+    if(fsMissing()) openModal("gate");     // 全画面になるまで問題は見せない
+    startTimer();
+    queue("event", { type: "start", offline: p.offline });
+    if(pinNeeded) queue("event", { type: "pin", cause: p.offline ? "offline" : "restart" });
+  }finally{
+    busy = false; btn.disabled = false;
+  }
+}
+function fillBar(){
+  $("#bar-title").textContent = CONFIG.title;
+  $("#bar-who").textContent = whoText(S.student);
+}
+
+/* ---------- 提出 ---------- */
+function askSubmit(){
+  S.answers = collect(); save();
+  const left = QUESTIONS.length - answeredCount(S.answers);
+  $("#c-msg").textContent = left > 0 ? `未回答の問題が ${left} 問あります。` : "すべての問題に回答しています。";
+  openModal("confirm");
+}
+function payload(){
+  return {
+    kind: "submit", examId: CONFIG.id, submissionId: S.submissionId, student: S.student,
+    startAt: S.startAt, submitAt: S.submitted ? S.submitted.at : null,
+    reason: S.submitted ? S.submitted.reason : "not-submitted",
+    awayCount: S.awayCount, awayMs: S.awayMs, starts: S.starts, offlineStart: S.offlineStart,
+    app: APP_VERSION, answers: S.answers, log: S.log
+  };
+}
+async function doSubmit(reason){
+  if(S.submitted || S.phase !== "exam") return;
+  S.answers = collect();
+  // 時間切れのときは、教室全体の提出が同じ瞬間に集中しないようずらす
+  S.holdUntil = reason === "timeup" ? now() + Math.random() * TIMEUP_SPREAD : 0;
+  closeAway("return-by-submit");
+  logEvt("submit", reason);
+  S.phase = "done";
+  S.submitted = { at: now(), reason };
+  S.outbox = S.outbox.filter(i => i.type !== "backup");          // 提出があれば途中の控えは要らない
+  if(CONFIG.submitUrl) S.outbox.push({ ...payload(), eventId: uid() });
+  save();
+  clearInterval(timerId);
+  ["guard", "gate", "confirm"].forEach(closeModal);
+  await leaveFS();
+  renderDone();
+  flush();
+}
+function renderDone(){
+  show("scr-done");
+  document.body.dataset.level = 0;     // 離脱の警告枠は提出後には出さない（回数は下に表示する）
+  let txt, cls, help = "";
+  if(!CONFIG.submitUrl){ txt = "この端末に保存しました（送信先が未設定）"; cls = "warn"; }
+  else if(S.sent){ txt = "送信しました"; cls = "ok"; help = "この画面は閉じてかまいません。"; }
+  else if(S.rejected){ txt = "送信先が受け付けませんでした"; cls = "bad"; help = `監督者を呼んでください（理由：${S.rejected}）。回答はこの端末に残っています。`; }
+  else if(S.attempts === 0){ txt = "送信しています…"; cls = ""; help = "この画面を閉じずに待ってください。"; }
+  else{
+    txt = `送信を再試行しています（${S.attempts} 回目）`;
+    cls = S.attempts >= 5 ? "bad" : "warn";
+    help = S.attempts >= 3 ? "送信できない状態が続いています。この画面を閉じずに、監督者を呼んでください。" : "この画面を閉じずに待ってください。";
+  }
+  const el = $("#d-status"); el.textContent = txt; el.className = "status " + cls;
+  $("#d-help").textContent = help;
+  $("#d-summary").textContent = S.student
+    ? `${whoText(S.student)}　／　回答 ${answeredCount(S.answers || {})} / ${QUESTIONS.length} 問　／　離脱 ${S.awayCount} 回`
+    : "";
+  $("#btn-retry").hidden = !(CONFIG.submitUrl && !S.sent && (S.attempts > 0 || S.rejected));
+  $("#btn-download").hidden = !(!CONFIG.submitUrl || (!S.sent && (S.attempts >= 3 || S.rejected)));
+}
+function download(){
+  if(!S.student) return;
+  const key = (S.student.token || `${S.student.cls}-${S.student.no}`).replace(/[\\/:*?"<>|\s]/g, "_");
+  saveFile(JSON.stringify(payload(), null, 2), `${CONFIG.id}_${key}.json`, "application/json");
+}
+
+/* ---------- 監督者メニュー ---------- */
+let resetArmed = false;
+function openAdmin(){
+  resetArmed = false;
+  $("#btn-a-reset").textContent = "消去する";
+  $("#a-pin").value = ""; $("#a-err").textContent = "";
+  openModal("admin");
+}
+async function adminOk(){
+  if(await verifyPin($("#a-pin").value)){
+    if(S.student) queue("event", { type: "pin", cause: "admin" });   // 暗証番号を使ったことはサーバーに残る
+    return true;
+  }
+  $("#a-err").textContent = "暗証番号が違います。";
+  return false;
+}
+async function onReset(){
+  if(!(await adminOk())) return;
+  const unsent = CONFIG.submitUrl && S.submitted && !S.sent;
+  if(unsent && !resetArmed){
+    resetArmed = true;
+    $("#a-err").textContent = "未送信の提出があります。先に「データを保存」してください。それでも消去するときは、もう一度押してください。";
+    $("#btn-a-reset").textContent = "未送信のまま消去する";
+    return;
+  }
+  if(CONFIG.submitUrl && S.student){
+    try{
+      await post({ kind: "event", type: "reset", examId: CONFIG.id, eventId: uid(), submissionId: S.submissionId,
+                   student: S.student, at: now(), count: S.awayCount }, 8000);
+    }catch(e){}
+  }
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  location.reload();
+}
+
+/* ---------- 起動 ---------- */
+function bind(){
+  $("#qs").addEventListener("input", onInput);
+  $("#qs").addEventListener("change", onChange);
+  $("#btn-next").addEventListener("click", onNext);
+  $("#f-code").addEventListener("keydown", e => { if(e.key === "Enter") onNext(); });
+  $("#btn-begin").addEventListener("click", onBegin);
+  $("#bg-pin").addEventListener("keydown", e => { if(e.key === "Enter") onBegin(); });
+  $("#btn-bg-cancel").addEventListener("click", () => { pending = null; closeModal("begin"); });
+  $("#btn-gate").addEventListener("click", onGate);
+  $("#btn-submit").addEventListener("click", askSubmit);
+  $("#btn-cancel").addEventListener("click", () => closeModal("confirm"));
+  $("#btn-ok").addEventListener("click", () => doSubmit("manual"));
+  $("#btn-resume").addEventListener("click", resume);
+  $("#g-pin").addEventListener("keydown", e => { if(e.key === "Enter") resume(); });
+  $("#btn-retry").addEventListener("click", () => { S.holdUntil = 0; S.rejected = null; save(); flush(); });
+  ["#f-token", "#f-cls", "#f-no", "#f-name"].forEach(id => $(id).addEventListener("keydown", e => { if(e.key === "Enter") onNext(); }));
+  $("#btn-download").addEventListener("click", download);
+  document.querySelectorAll("[data-admin]").forEach(b => { b.hidden = false; b.addEventListener("click", openAdmin); });
+  $("#btn-a-cancel").addEventListener("click", () => closeModal("admin"));
+  $("#btn-a-download").addEventListener("click", async () => { if(await adminOk()) download(); });
+  $("#btn-a-reset").addEventListener("click", onReset);
+}
+function blockedScreen(title, msg){
+  $("#none-title").textContent = title;
+  $("#none-msg").textContent = msg;
+  show("scr-none");
+}
+async function init(){
+  if(!window.isSecureContext || !window.crypto || !crypto.subtle){
+    return blockedScreen("このページは https で開いてください",
+      "暗号化された問題を開くには、https:// で始まる URL（またはファイルを直接開く）で表示する必要があります。");
+  }
+  if(BUILD){ initBuild(); return; }
+  if(!CONFIG){ show("scr-none"); return; }
+  if(!(await acquireTabLock())){
+    BLOCKED = true;
+    return blockedScreen("別のタブで開かれています",
+      "この試験は、この端末の別のタブ（ウィンドウ）ですでに開かれています。このタブを閉じて、元のタブに戻ってください。");
+  }
+  document.title = CONFIG.title;
+  if(!storageOk()){
+    $("#entry-warn").textContent = "この端末では回答を保存できません。再読み込みすると回答が消えるので、監督者に伝えてください。";
+    $("#entry-warn").hidden = false;
+  }
+  $("#ttl").textContent = CONFIG.title;
+  const end = CONFIG.endsAt ? new Date(CONFIG.endsAt) : null;
+  $("#meta").textContent = `試験時間 ${CONFIG.durationMin} 分` +
+    (end ? `（${end.getHours()}:${String(end.getMinutes()).padStart(2, "0")} に終了）` : "") + `　・　全 ${CONFIG.nQ} 問`;
+  document.querySelectorAll(".mode-token").forEach(e => e.hidden = !CONFIG.useToken);
+  document.querySelectorAll(".mode-self").forEach(e => e.hidden = !!CONFIG.useToken);
+  bind();
+
+  if(S.phase === "exam" || S.phase === "done"){
+    try{ QUESTIONS = (await unseal(S.code)).questions; }
+    catch(e){
+      $("#none-msg").textContent = "この端末に保存されている受験データを開けませんでした（試験ファイルが差し替えられた可能性があります）。監督者を呼んでください。";
+      show("scr-none"); return;
+    }
+    renderQuestions($("#qs"), QUESTIONS, S.submissionId);
+    restore(S.answers);
+  }
+  if(S.phase === "done"){
+    renderDone(); flush();
+  }else if(S.phase === "exam"){
+    fillBar(); applyLevel(); updateProgress();
+    show("scr-exam"); startTimer();
+    if(S.away) showGuard();
+    else leave("reload");       // 再読み込みも離脱として扱う
+    flush();
+  }else{
+    show("scr-entry");
+  }
+}
+
+/* =====================================================================
+   作成画面（#build）
+   ===================================================================== */
+// ひな形（問題文は入れない。見本の試験は exam-sample.json を読み込む）
+const SKELETON = {
+  id: "2026-kimatsu-butsuri",
+  title: "試験名",
+  durationMin: 50,
+  submitUrl: "",
+  useToken: false,
+  requirePinAfter: 2,
+  shuffleOptions: true,
+  endsAt: "",
+  questions: [
+    { id: "q1", type: "choice", points: 5, text: "（問題文）", options: ["（選択肢）", "（選択肢）", "（選択肢）", "（選択肢）"] },
+    { id: "q2", type: "number", points: 5, text: "（問題文）", label: "<i>x</i> =", unit: "m" },
+    { id: "q3", type: "multi", points: 5, text: "（問題文）", options: ["（選択肢）", "（選択肢）", "（選択肢）"], shuffle: false },
+    { id: "q4", type: "text", points: 10, text: "（問題文）", rows: 5, maxLength: 800 }
+  ]
+};
+function buildErr(m){ $("#b-err").textContent = m || ""; }
+// "2026-11-10T10:50"（この端末の時刻）や "2026-11-10T10:50+09:00" を受け付ける
+function parseEnds(s){
+  const m = /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::\d{2})?(Z|[+-]\d{2}:?\d{2})?$/.exec(String(s).trim());
+  if(!m) return NaN;
+  if(m[6]) return Date.parse(String(s).trim().replace(" ", "T"));
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime();
+}
+function validate(c){
+  if(!c || typeof c !== "object" || Array.isArray(c)) return "JSON の一番外側は { } にしてください。";
+  if(!/^[A-Za-z0-9_-]{1,60}$/.test(c.id || "")) return "id は半角英数字・ハイフン・下線で書いてください（試験ごとに変える）。";
+  if(!c.title || typeof c.title !== "string") return "title（試験名）がありません。";
+  if(!(Number(c.durationMin) > 0 && Number(c.durationMin) <= 600)) return "durationMin（試験時間 / min）は 0 より大きく 600 以下にしてください。";
+  if(c.submitUrl && !/^(https:\/\/|http:\/\/(localhost|127\.0\.0\.1)[:/])/.test(c.submitUrl)) return "submitUrl は https:// で始まる URL にしてください。";
+  if(c.useToken && !c.submitUrl) return "useToken を true にするときは、submitUrl も必要です（受験票番号をサーバーで照合するため）。";
+  if(c.requirePinAfter != null && !(Number.isInteger(c.requirePinAfter) && c.requirePinAfter >= 0)) return "requirePinAfter は 0 以上の整数にしてください（0 なら暗証番号を求めない）。";
+  if(c.endsAt != null && c.endsAt !== "" && !isFinite(parseEnds(c.endsAt))) return "endsAt（全体の終了時刻）は \"2026-11-10T10:50\" の形で書いてください。";
+  if(!Array.isArray(c.questions) || !c.questions.length) return "questions に問題がありません。";
+  const ids = new Set();
+  for(const [i, q] of c.questions.entries()){
+    const n = `問${i + 1}`;
+    if(!q || typeof q !== "object" || !/^[A-Za-z0-9_]{1,30}$/.test(q.id || "")) return `${n}：id は半角英数字で書いてください。`;
+    if(ids.has(q.id)) return `${n}：id「${q.id}」が重複しています。`;
+    ids.add(q.id);
+    if(!["choice", "multi", "number", "text"].includes(q.type)) return `${n}：type は choice / multi / number / text のどれかにしてください。`;
+    if(!q.text || typeof q.text !== "string") return `${n}：text（問題文）がありません。`;
+    if(q.type === "choice" || q.type === "multi"){
+      if(!Array.isArray(q.options) || q.options.length < 2 || q.options.length > LABELS.length) return `${n}：options（選択肢）は 2〜${LABELS.length} 個にしてください。`;
+      if(q.options.some(o => typeof o !== "string" || !o)) return `${n}：options に空の選択肢があります。`;
+    }
+    if(q.maxLength != null && !(Number(q.maxLength) >= 1 && Number(q.maxLength) <= 20000)) return `${n}：maxLength は 1〜20000 にしてください。`;
+  }
+  return null;
+}
+function parseCfg(){
+  buildErr("");
+  let c;
+  try{ c = JSON.parse($("#b-json").value.replace(/^﻿/, "")); }
+  catch(e){ buildErr("JSON の書き方に誤りがあります：" + e.message); return null; }
+  const err = validate(c);
+  if(err){ buildErr(err); return null; }
+  return c;
+}
+// 送信先が正しく設置されているか（全員に公開・スプレッドシートに結び付いている・版が合う）を確かめる
+async function testServer(url){
+  const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 15000);
+  try{
+    const j = await (await fetch(url, { signal: ac.signal })).json();
+    if(j.app !== "exam-receiver") return "送信先が試験用の Apps Script ではありません。";
+    if(!j.ok) return j.error === "not-bound"
+      ? "Apps Script がスプレッドシートに結び付いていません。スプレッドシートの「拡張機能 → Apps Script」から作ってください。"
+      : "送信先がエラーを返しました：" + j.error;
+    if((j.version || 0) < SERVER_MIN) return `送信先の Apps Script が古い版です（v${j.version || 1}）。exam-receiver.gs を貼り直し、「デプロイを管理 → 編集 → 新しいバージョン」でデプロイし直してください。`;
+    return null;
+  }catch(e){
+    return "送信先に接続できませんでした。URL と、デプロイの「アクセスできるユーザー：全員」を確かめてください。";
+  }finally{ clearTimeout(t); }
+}
+// 書き出しの元にするこのファイル自身。https で置いているときは、ブラウザ拡張などに書き換えられていない元のファイルを使う
+async function templateSource(){
+  if(/^https?:$/.test(location.protocol)){
+    try{
+      const r = await fetch(location.pathname + location.search, { cache: "no-store" });
+      const t = r.ok ? await r.text() : "";
+      if(t.includes("/*CONFIG-" + "BEGIN*/")) return t.replace(/^\s*<!doctype html>\s*/i, "");
+    }catch(e){}
+  }
+  return TEMPLATE;
+}
+let skipCheck = false;
+async function build(){
+  const c = parseCfg(); if(!c) return;
+  let code = normCode($("#b-code").value) || randCode(8);
+  if(code.length < 8) return buildErr("開始コードは 8 文字以上にしてください（総当たりで破られないため）。空欄にすると自動で作ります。");
+  let pin = String($("#b-pin").value || "").normalize("NFKC").trim() || randDigits(6);
+  if(!/^\d{4,}$/.test(pin)) return buildErr("暗証番号は 4 桁以上の数字にしてください。");
+  const btn = $("#b-build");
+  btn.disabled = true;
+  try{
+    if(c.submitUrl && !skipCheck){
+      btn.textContent = "送信先を確かめています…";
+      const err = await testServer(c.submitUrl);
+      if(err){
+        skipCheck = true;
+        return buildErr(err + "　送信先を確かめずに保存するときは、もう一度押してください。");
+      }
+    }
+    skipCheck = false;
+    btn.textContent = "作成しています…";
+    const salt = rand(16), iv = rand(12), pinSalt = rand(16);
+    const key = await aesKey(code, salt, KDF_ITER, ["encrypt"]);
+    const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, te.encode(JSON.stringify({ questions: c.questions }))));
+    const cfg = {
+      v: APP_VERSION, id: c.id, title: c.title, durationMin: Number(c.durationMin),
+      submitUrl: c.submitUrl || "", useToken: !!c.useToken, shuffleOptions: !!c.shuffleOptions,
+      requirePinAfter: c.requirePinAfter == null ? 2 : Number(c.requirePinAfter),
+      endsAt: c.endsAt ? parseEnds(c.endsAt) : 0,
+      nQ: c.questions.length, builtAt: new Date().toISOString(),
+      kdf: { salt: toB64(salt), iter: KDF_ITER },
+      sealed: { iv: toB64(iv), ct: toB64(ct) },
+      pin: { salt: toB64(pinSalt), iter: PIN_ITER, hash: toHex(await pbkdf2(pin, pinSalt, PIN_ITER)) }
+    };
+    const json = JSON.stringify(cfg).replace(/</g, "\\u003c");
+    const B = "/*CONFIG-" + "BEGIN*/", E = "/*CONFIG-" + "END*/";
+    const src = await templateSource();
+    const html = "<!doctype html>\n" + src.replace(/\/\*CONFIG-BEGIN\*\/[\s\S]*?\/\*CONFIG-END\*\//, () => B + json + E);
+    const name = `exam-${c.id}.html`;
+    saveFile(html, name, "text/html");
+    const r = $("#b-result");
+    r.innerHTML = `<h2>試験ファイルを保存しました</h2>
+      <dl><dt>ファイル</dt><dd>${name}</dd>
+      <dt>開始コード</dt><dd class="big" id="b-out-code">${fmtCode(code)}</dd>
+      <dt>暗証番号</dt><dd class="big" id="b-out-pin">${pin}</dd></dl>
+      <p style="margin:0 0 6px">開始コードと暗証番号はファイルに入っていません。必ず控えてください。クラスや日によって試験を分けるときは、そのたびに作り直してコードを変えてください。</p>
+      ${c.submitUrl ? "" : '<p class="notice" style="margin:0">送信先（submitUrl）がないので、回答は各端末にしか残りません。回収には、端末ごとに「データを保存」が必要です。</p>'}`;
+    r.hidden = false;
+  }finally{
+    btn.disabled = false; btn.textContent = "暗号化して試験ファイルを保存する";
+  }
+}
+function initBuild(){
+  document.title = "試験ファイルの作成";
+  show("scr-build");
+  $("#b-sample").addEventListener("click", () => { $("#b-json").value = JSON.stringify(SKELETON, null, 2); skipCheck = false; });
+  $("#b-json").addEventListener("input", () => { skipCheck = false; });
+  $("#b-file").addEventListener("change", async e => { const f = e.target.files[0]; if(f){ $("#b-json").value = await f.text(); skipCheck = false; } });
+  $("#b-preview-btn").addEventListener("click", () => {
+    const c = parseCfg(); if(!c) return;
+    QUESTIONS = c.questions;
+    renderQuestions($("#b-preview"), c.questions);     // プレビューは元の順番のまま
+  });
+  $("#b-build").addEventListener("click", build);
+}
+
+init();
+</script></body></html>
