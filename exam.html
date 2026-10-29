@@ -124,6 +124,101 @@ body[data-level="2"] #frame{box-shadow:inset 0 0 0 10px var(--l2)}
 .result dt{color:var(--sub)}
 .result dd{margin:0}
 
+/* ---------- 教材 ---------- */
+.q.info{background:#f7f9fc}
+.media{margin:10px 0 14px}
+.m-img{display:block; max-width:100%; height:auto; border-radius:8px}
+.m-app{display:block; width:100%; border:1px solid var(--line); border-radius:10px; background:#fff}
+.m-vid video{display:block; width:100%; max-height:60vh; background:#000; border-radius:10px}
+.vctl{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px}
+.vctl button,.vctl select,.sh-tools button,.sh-gctl select{font-size:.9rem; padding:6px 12px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink)}
+.vseek{flex:1; min-width:160px}
+.vt{font-variant-numeric:tabular-nums; min-width:13em}
+.sheet{border:1px solid var(--line); border-radius:10px; padding:12px; background:#fff}
+.sh-bar{display:flex; gap:8px; align-items:center; margin-bottom:8px}
+.sh-ref{min-width:5.5em; font-family:var(--mono); font-size:.9rem; color:var(--sub)}
+.sh-fx{flex:1; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-family:var(--mono); font-size:.95rem}
+.sh-fx[readonly]{background:#f3f5f8; color:var(--sub)}
+.sh-tools{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:8px}
+.sh-addcol{display:inline-flex; gap:4px; align-items:center; margin-left:auto}
+.sh-addcol input{width:5.5em; padding:6px 8px; border:1px solid var(--line); border-radius:8px; font-size:.9rem}
+.sh-grid{max-height:360px; overflow:auto; border:1px solid var(--line); border-radius:6px; outline:none}
+.sh-grid:focus-visible{outline:2px solid var(--accent)}
+.sh-grid table{border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:.95rem}
+.sh-grid th,.sh-grid td{border:1px solid #e3e7ed; padding:3px 10px; min-width:6.5em; height:1.9em; white-space:nowrap}
+.sh-grid thead th{position:sticky; top:0; background:#eef1f5; font-weight:600; z-index:1; font-family:"Times New Roman",Times,serif; font-size:1.05rem}
+.sh-grid tbody th{position:sticky; left:0; background:#f6f8fb; color:var(--sub); font-weight:400; min-width:2.6em; text-align:right}
+.sh-grid th.corner{left:0; z-index:2}
+.sh-grid td{cursor:cell}
+.sh-grid td.num{text-align:right}
+.sh-grid td.lock{background:#f3f5f8}
+.sh-grid td.fx{color:#0b4a8f}
+.sh-grid td.err{color:var(--bad)}
+.sh-grid td.sel{outline:2px solid var(--accent); outline-offset:-2px; background:#eef4fc}
+.sh-del{border:0; background:none; color:var(--sub); cursor:pointer; padding:0 2px; font-size:.9rem}
+.sh-msg{min-height:1.4em; margin:6px 0 0; font-size:.9rem; color:var(--warn)}
+.sh-graph{margin-top:8px}
+.sh-gctl{font-size:.9rem; color:var(--sub); margin-bottom:4px}
+.sh-svg{width:100%; max-width:640px; height:auto; display:block}
+.sh-svg .ax-box{fill:#fff; stroke:#9aa3ae}
+.sh-svg .ax-grid{stroke:#e6e9ee}
+.sh-svg .ax-t{font-size:12px; fill:#5d6775}
+.sh-svg .ax-l{font-size:15px; fill:#1b2129; font-family:"Times New Roman",Times,serif}
+.sh-svg .ax-pt{fill:#1f5fae}
+.sh-svg .ax-fit{stroke:#c62828; stroke-width:1.6}
+.sh-svg .ax-empty{font-size:13px; fill:#8a94a1}
+.sh-fit{font-size:.95rem; min-height:1.5em}
+/* ---------- 問題エディタ ---------- */
+.b-top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px}
+.b-top h1{margin:0}
+.b-h{font-size:1.1rem; margin:26px 0 10px; padding-bottom:4px; border-bottom:2px solid var(--line)}
+.b-card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px}
+.b-card .form{margin-bottom:10px}
+.form label.chk{flex-direction:row; align-items:center; gap:8px; color:var(--ink); font-size:.95rem}
+.form label.chk input{width:18px; height:18px}
+.b-q{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:12px}
+.b-q.b-err{border-color:var(--bad); box-shadow:0 0 0 3px rgba(198,40,40,.15)}
+.b-qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px}
+.b-no{font-weight:700; font-size:1.05rem; min-width:4.5em}
+.b-qhead select,.b-q select{padding:6px 8px; border:1px solid var(--line); border-radius:8px; font-size:.95rem; background:#fff}
+.b-pts{display:inline-flex; align-items:center; gap:6px; font-size:.9rem; color:var(--sub)}
+.b-pts input{width:5em}
+.b-qtools{margin-left:auto; display:inline-flex; gap:4px; flex-wrap:wrap}
+.b-qtools button,.b-fmt button,.b-madd button,.b-add button,.b-row button,.b-opt button{font-size:.85rem; padding:4px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink)}
+.b-qtools .b-danger{color:var(--bad); border-color:#efc4c4}
+.b-q input:not([type=checkbox]),.b-q textarea{padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-size:.95rem; background:#fff}
+.b-q textarea{width:100%; line-height:1.6; resize:vertical}
+.b-q label{display:inline-flex; flex-direction:column; gap:3px; font-size:.85rem; color:var(--sub)}
+.b-q label.chk{flex-direction:row; align-items:center; gap:6px; color:var(--ink); font-size:.9rem}
+.b-q label.b-full{display:flex; width:100%; margin:6px 0}
+.b-q label.b-full input{width:100%}
+.b-q label.b-sm input{width:8em}
+.b-fmt{display:flex; align-items:center; gap:6px; margin:4px 0}
+.b-lbl{font-size:.85rem; color:var(--sub); margin-right:4px}
+.b-row{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:flex-end; margin:8px 0}
+.b-opts{margin:8px 0}
+.b-opt{display:flex; align-items:center; gap:6px; margin:4px 0}
+.b-opt input{flex:1}
+.b-mark{font-weight:700; min-width:1.4em; text-align:center}
+.b-media{display:flex; flex-direction:column; gap:8px; margin-top:8px}
+.b-m{border:1px dashed #b9c3cf; border-radius:10px; padding:10px 12px; background:#f9fbfd}
+.b-mhead{display:flex; align-items:center; gap:10px; margin-bottom:4px}
+.b-id{font-size:.8rem; color:var(--sub); font-family:var(--mono)}
+.b-col{display:inline-flex; gap:3px; align-items:center}
+.b-col input{width:5em}
+.b-madd{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:10px}
+.b-add{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:12px 16px; background:#eef4fc; border-radius:12px}
+.b-add button{font-size:.95rem; padding:7px 14px; border-color:#b9cde6}
+.b-q label.b-pts{flex-direction:row; align-items:center; gap:6px}
+.b-live{margin:4px 0 6px; padding:6px 10px; background:#f6f8fb; border-radius:8px; font-size:.95rem; min-height:1.6em}
+.b-live:empty::before{content:"（入力すると、ここに試験での見え方が出ます）"; color:#9aa3ae; font-size:.85rem}
+.b-qprev:not(:empty){margin-top:12px; padding-top:12px; border-top:1px solid var(--line)}
+.b-empty{padding:12px 4px}
+.build .tools{margin:0}
+.assets{margin:0 0 16px; padding:12px 14px; background:var(--paper); border:1px solid var(--line); border-radius:10px; font-size:.92rem}
+.assets ul{margin:6px 0 0; padding-left:1.4em}
+.assets .warn{color:var(--warn)}
+
 @media (max-width:640px){
   .bar{flex-wrap:wrap; gap:6px 14px; padding:8px 14px}
   .bar-title{flex-basis:100%}
@@ -208,21 +303,70 @@ body[data-level="2"] #frame{box-shadow:inset 0 0 0 10px var(--l2)}
 <!-- 作成画面（#build） -->
 <section id="scr-build" class="screen">
   <div class="build">
-    <h1>試験ファイルの作成</h1>
-    <p class="note">問題を書いた JSON から、問題を暗号化した試験ファイルを作ります。問題は配るファイルには平文で入らず、開始コードがないと読めません。作成に使った JSON は配らずに手元で保管してください。</p>
-    <div class="tools">
-      <label class="ghost filebtn">JSON を読み込む<input type="file" id="b-file" accept=".json,application/json" hidden=""></label>
-      <button class="ghost" id="b-sample">ひな形を入れる</button>
-      <button class="ghost" id="b-preview-btn">問題をプレビュー</button>
+    <div class="b-top">
+      <h1>試験ファイルの作成</h1>
+      <div class="tools">
+        <button class="ghost" id="b-new">新しく作る</button>
+        <label class="ghost filebtn">問題ファイルを開く<input type="file" id="b-file" accept=".json,application/json" hidden=""></label>
+        <button class="ghost" id="b-save">問題ファイルを保存</button>
+        <button class="ghost" id="b-jsonmode">JSON で編集</button>
+      </div>
     </div>
-    <textarea id="b-json" spellcheck="false" placeholder="ここに試験の JSON を貼り付けるか、「JSON を読み込む」「ひな形を入れる」を使ってください。"></textarea>
-    <div class="form">
-      <label>開始コード（空欄にして自動で作るのがおすすめ。自分で決めるなら8文字以上）<input id="b-code" class="code-input" autocomplete="off" spellcheck="false"></label>
-      <label>監督者の暗証番号（4桁以上の数字。空欄なら6桁を自動で作る）<input id="b-pin" inputmode="numeric" autocomplete="off"></label>
+    <p class="note" id="b-draft-note"></p>
+
+    <div id="b-jsonbox" class="b-card" hidden="">
+      <p class="note" style="margin:0 0 8px">問題の JSON を直接書き換えられます。書き換えたら「フォームに反映する」を押してください。</p>
+      <textarea id="b-json" spellcheck="false"></textarea>
+      <button class="primary" id="b-json-apply">フォームに反映する</button>
     </div>
-    <p class="err" id="b-err"></p>
-    <button class="primary" id="b-build">暗号化して試験ファイルを保存する</button>
-    <div class="result" id="b-result" hidden=""></div>
+
+    <h2 class="b-h">1　試験の設定</h2>
+    <div class="b-card">
+      <div class="form b-settings" id="b-settings">
+        <label class="wide">試験名<input data-s="title" placeholder="例：2学期期末考査　中学2年物理"></label>
+        <label>試験時間 / min<input data-s="durationMin" type="number" min="1" max="600" inputmode="numeric"></label>
+        <label>全体の終了時刻（なければ空欄）<input data-s="endsAt" type="datetime-local"></label>
+        <label class="wide">送信先（Apps Script のウェブアプリの URL。空欄なら端末に保存するだけ）<input data-s="submitUrl" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false"></label>
+        <label class="chk"><input type="checkbox" data-s="useToken">受験票番号で受験する</label>
+        <label class="chk"><input type="checkbox" data-s="shuffleOptions">選択肢を生徒ごとに並べ替える</label>
+        <label>暗証番号を求める離脱（何回目から。0 なら求めない）<input data-s="requirePinAfter" type="number" min="0" max="20" inputmode="numeric"></label>
+        <label>試験の ID（半角英数字。試験ごとに変える）<input data-s="id" spellcheck="false"></label>
+      </div>
+    </div>
+
+    <h2 class="b-h">2　教材ファイル</h2>
+    <div class="assets" id="b-assets">
+      <label class="ghost filebtn">教材ファイルを追加（自作の HTML・動画・画像）<input type="file" id="b-files" multiple="" accept=".html,.htm,.mp4,.webm,.m4v,.mov,.png,.jpg,.jpeg,.gif,.svg,.webp" hidden=""></label>
+      <span id="b-assets-sum" style="margin-left:8px;color:var(--sub)"></span>
+      <ul id="b-assets-list"></ul>
+      <p class="note" style="margin:6px 0 0">教材ファイルは下書きに残りません。作成画面を開き直したときは、もう一度追加してください。</p>
+    </div>
+
+    <h2 class="b-h">3　問題</h2>
+    <div id="b-qs"></div>
+    <p class="note" style="margin:0 0 8px">「列名」は、回答を集めるスプレッドシートの列の名前です。問題を並べ替えたり複製したりしたあとは、<button type="button" class="linkish" id="b-renum">列名を問題の番号順に振り直す</button>と採点しやすくなります（同じ試験 ID ですでに実施した試験では、列が変わるので振り直さないでください）。</p>
+    <div class="b-add" id="b-add">
+      <span>追加する：</span>
+      <button type="button" data-add="info">大問の説明</button>
+      <button type="button" data-add="choice">1つ選ぶ</button>
+      <button type="button" data-add="multi">すべて選ぶ</button>
+      <button type="button" data-add="number">数値</button>
+      <button type="button" data-add="text">記述</button>
+    </div>
+
+    <h2 class="b-h">4　試験ファイルを作る</h2>
+    <div class="b-card">
+      <div class="form">
+        <label>開始コード（空欄にして自動で作るのがおすすめ。自分で決めるなら8文字以上）<input id="b-code" class="code-input" autocomplete="off" spellcheck="false"></label>
+        <label>監督者の暗証番号（4桁以上の数字。空欄なら6桁を自動で作る）<input id="b-pin" inputmode="numeric" autocomplete="off"></label>
+      </div>
+      <p class="err" id="b-err"></p>
+      <div class="tools">
+        <button class="ghost" id="b-preview-btn">全体をプレビュー</button>
+        <button class="primary" id="b-build">暗号化して試験ファイルを保存する</button>
+      </div>
+      <div class="result" id="b-result" hidden=""></div>
+    </div>
     <div id="b-preview" class="paper" style="padding:0;margin-top:20px"></div>
   </div>
 </section>
@@ -297,14 +441,17 @@ body[data-level="2"] #frame{box-shadow:inset 0 0 0 10px var(--l2)}
   </div>
 </div>
 
+<!-- 暗号化した教材（ウェブアプリ・動画・画像）。作成画面が書き込む -->
+<script type="application/octet-stream" id="sealed-assets">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</script>
 <script>
 "use strict";
 /* =====================================================================
    このファイルを直接編集する必要はありません。
    試験ファイルは、URL の末尾に #build を付けて開いた作成画面で作ります。
    ===================================================================== */
-const TEMPLATE = document.documentElement.outerHTML;   // 作成画面で試験ファイルを書き出すときの元
-const CONFIG = /*CONFIG-BEGIN*/{"v":3,"id":"2026-2gakki-chukan-butsuri","title":"2学期中間考査　物理基礎","durationMin":50,"submitUrl":"","useToken":false,"shuffleOptions":true,"requirePinAfter":2,"endsAt":0,"nQ":4,"builtAt":"2026-10-28T04:29:37.923Z","kdf":{"salt":"I9ChloenaIs2XRNwwg0Gjw==","iter":300000},"sealed":{"iv":"sJBbJNwUy6+NAw3f","ct":"nTemYboZeAotkOK6LTc+v7d1XL/xy9ACMvFqHrxoSYsyik5l07W2qHbrVBqcI+c3IYipj6Y421c1pLpGcDgVG/yWb2yFKGU1DFDdEaqBla1fWi4NjT5jfeYv38ikjkYjDv5a3MClKPbEyU0TzoS9rX9KzpOFVuqJztNJ8gf3VHTe0zSsrEvLArvOxwrqNhGroObuJtEW7SXr2kuZs6Wba3ZEWtE7Am0HgkyDkxV1RMT7Bd3Q1bf5m023KJTcI03g+OZXn3MdP87wqDIffwhI+P9lYMR1kkNp8YJg/DGJHvEjmQdDzMn0m/UXjOAGR3Y20uxEv2jal2/nAUCYqaNi5xD8GSuUhN8FBnublkm2sI59Nxv6mHr2swggYLkf3SyiFFD6vUN71b2Jw0/cZw6KJ9k2gvXr4hBfpL3rN4nApUb2G3PfOlGG0jYrx9KbozbyVZHbK0KvbqGoyQhyGepxDQhByMqBNpaseSyOG5LguVC31NdpgpLhq3jvzATvqpDuDoA2Ov7GgENfk2/mscGjsBb2FyMpv3b+TPevEdB00L8jTA5UkDyaKG7jGm/XdQXr4pywF7Vg21qSysnrJLkEd5tTdZY7i3Xa4fo9ESmkRbhpeBH9ToE5i/Vlh/j0+yLHm6C7bh+7bbBvInH5h7T0PAP4VGyFFrNTLllJLVud22H8xnpPiof4vKdncsdavMsO6Lbd+oVRt4xiv4agWfIxeSw1bvvs0e9MDg0bCKuUMbI6FAhESVav+vVq4JIdkQMh5u3burvSgt22bfl3nDE+4zfmhWxc9lf/TAvDS8K4wFgwZkMYXrtA0XODQDgcK7fs1a12sGDJhMHIO5RSJdXZlK/IPwFcIjNJMxLunOxi/gAoaG/b+Pd0EV5K1GNQG6r0KoX7ahpGDZKWKB8EVjQlLgSrNAAOsIkIkE6d4mLCkKkyaw4IfzDUlffdNeNjwhMig4BkSWFibtM9LQstCfp5MjZW1BVARS0dpxmIHjjrHRAnqefNVEt5UuJGBL73u3mXkmX0twxu74ub9ttUXwG7S5U6yYbApkhxjYZ59aApryTts9TUvbzMQHDLl60bUcwCke2dGaVilqnYLZWitl2TRBlKGase0WiscreqqwOunqiMK+Hnq4Z38X8fiw9gCYbjPbEb/Qzerj/ozcnyZfgP9HoAHfifeGmY8ZWF0RW4YlS9slZnv5fHa6TnOvZ1D0hLMh1U8ZK8KL7pzx+2wsVPBFGlD1oKXNvV++ewNNEHlMoTKJoG39nXhpir/8dbKFuUxOrws5f+y92fV3r+fd0TwFymu+yoBUXWBME6v+XaWO/DFiCTScRqfn+cgGyWomS3lK0yJgVbj1jgJ0vkwO/0dRUzlKeNDLfBYOQzc3YyV5SPLhAtgBnf+kL5JKGrF8CLP8O6CeKOFGcchUshxLxpQYxMLEsdS1yHFkQzlrp1X4gpw53i4WK04VP0SmKabTLI21kpOaz6JgJZA2lvoxxFYnUpJ/8="},"pin":{"salt":"4RLYXJKB0IcyjIYvEnqL+Q==","iter":100000,"hash":"91219c9edeeaf5b3a0875d047068e5f9b8b2e0ea63484c68e33086d29d9c935e"}}/*CONFIG-END*/;
+// 作成画面で試験ファイルを書き出すときの元（教材が大きいことがあるので、作成画面のときだけ取っておく）
+const TEMPLATE = location.hash === "#build" ? document.documentElement.outerHTML : "";
+const CONFIG = /*CONFIG-BEGIN*/{"v":3,"id":"2026-chu2-butsuri-sample","title":"中学2年物理（教材つきの見本）","durationMin":50,"submitUrl":"","useToken":false,"shuffleOptions":false,"requirePinAfter":1,"endsAt":0,"nQ":3,"builtAt":"2026-10-29T03:46:06.973Z","assets":{"iv":"r3mBPXsWkXfowsuA","size":9278},"kdf":{"salt":"Gth3u/GT3R6zOZmLnCkI5w==","iter":300000},"sealed":{"iv":"ScoQxf0TTl6IYKJ3","ct":"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"},"pin":{"salt":"0bCR1tE0zKUkD4Szz5mDrA==","iter":100000,"hash":"911331dc032dbe382f8358fb59854714a97d118f8003ad0ea6edb7282dce5a21"}}/*CONFIG-END*/;
 
 const KDF_ITER = 300000;      // 開始コード → 鍵（PBKDF2-SHA256）
 const PIN_ITER = 100000;      // 暗証番号の照合（PBKDF2-SHA256）
@@ -352,7 +499,22 @@ async function aesKey(code, salt, iter, usage){
 async function unseal(code){
   const k = await aesKey(code, fromB64(CONFIG.kdf.salt), CONFIG.kdf.iter, ["decrypt"]);
   const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(CONFIG.sealed.iv) }, k, fromB64(CONFIG.sealed.ct));
-  return JSON.parse(td.decode(pt));
+  const data = JSON.parse(td.decode(pt));
+  data.key = k;
+  return data;
+}
+// 教材を復号して、名前 → { bytes, type } にする
+let ASSETS_CACHE = null;
+async function unsealAssets(data){
+  const index = data.assets || {};
+  if(!Object.keys(index).length || !CONFIG.assets) return {};
+  if(ASSETS_CACHE) return ASSETS_CACHE;
+  const el = document.getElementById("sealed-assets");
+  const blob = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(CONFIG.assets.iv) }, data.key, fromB64(el.textContent.trim())));
+  const map = {};
+  Object.entries(index).forEach(([name, a]) => { map[name] = { bytes: blob.subarray(a.off, a.off + a.len), type: a.type }; });
+  ASSETS_CACHE = map;
+  return map;
 }
 async function verifyPin(pin){
   if(!CONFIG.pin) return true;
@@ -392,10 +554,16 @@ function acquireTabLock(){
     }).catch(() => res(true));
   });
 }
+// 記録は 2000 件まで。あふれたら、表の操作や回答の変化など軽い記録の古いものから消す（開始や離脱の記録を残すため）
+const LOG_MAX = 2000;
+const LOG_LIGHT = new Set(["sheet", "answer", "app-answer", "focus-app", "focus", "visible", "fullscreen-enter"]);
 function logEvt(type, detail){
   if(!active()) return;
   S.log.push({ t: now(), type, detail: detail ?? null });
-  if(S.log.length > 2000) S.log.splice(0, S.log.length - 2000);
+  while(S.log.length > LOG_MAX){
+    const i = S.log.findIndex(l => LOG_LIGHT.has(l.type));
+    S.log.splice(i >= 0 ? i : 0, 1);
+  }
   save();
 }
 function show(id){ document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id)); }
@@ -435,16 +603,652 @@ function optionOrder(q, seed){
 }
 function ordersFor(seed){
   const o = {};
-  QUESTIONS.forEach(q => { if(q.options && shuffled(q)) o[q.id] = optionOrder(q, seed).map(j => LABELS[j]).join(""); });
+  QUESTIONS.forEach(q => { if(answerable(q) && Array.isArray(q.options) && shuffled(q)) o[q.id] = optionOrder(q, seed).map(j => LABELS[j]).join(""); });
   return o;
 }
 
+/* =====================================================================
+   教材（ウェブアプリ・動画・画像・表計算）
+   どれも試験ファイルの中に暗号化して入れ、試験ページの中に表示する。
+   生徒は試験ページから出ずに、教材を操作して解答する
+   ===================================================================== */
+const SHEETS = {};                 // 表計算の id → Sheet
+const APP_FRAMES = new Map();      // 解答を返すアプリの iframe → 解答の id
+const APP_VALUES = {};             // アプリから届いた解答
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+// 復号した教材の取り出し口
+function assetProvider(map){
+  const urls = {};
+  return name => {
+    const a = map[name];
+    if(!a) throw new Error("missing " + name);
+    return {
+      url: () => urls[name] || (urls[name] = URL.createObjectURL(new Blob([a.bytes], { type: a.type }))),
+      text: () => td.decode(a.bytes)
+    };
+  };
+}
+function appAnswerIds(qs){
+  const ids = [];
+  qs.forEach(q => (q.media || []).forEach(m => { if(m.kind === "app" && m.answer) ids.push(m.answer); }));
+  return ids;
+}
+function mountMedia(wrap, qs, provider, onSheet){
+  wrap.querySelectorAll(".media[data-q]").forEach(box => {
+    const q = qs.find(x => x.id === box.dataset.q);
+    const m = q && q.media && q.media[Number(box.dataset.i)];
+    if(!m) return;
+    try{
+      if(m.kind === "sheet") SHEETS[m.id] = new Sheet(box, m, onSheet);
+      else if(m.kind === "image") mountImage(box, m, provider(m.file).url());
+      else if(m.kind === "video") mountVideo(box, m, provider(m.file).url());
+      else if(m.kind === "app") mountApp(box, m, provider(m.file).text());
+    }catch(e){
+      box.textContent = "教材を表示できませんでした（" + (m.file || m.id || m.kind) + "）。監督者を呼んでください。";
+    }
+  });
+}
+function mountImage(box, m, url){
+  const img = document.createElement("img");
+  img.className = "m-img"; img.src = url; img.alt = m.alt || ""; img.draggable = false;
+  if(m.width) img.style.width = Math.min(Number(m.width) || 0, 2000) + "px";
+  box.appendChild(img);
+}
+// 自作の単一HTMLアプリ。sandbox により、リンクで別のページへ移る・新しいタブを開く・ダイアログを出す、はできない
+function mountApp(box, m, html){
+  const f = document.createElement("iframe");
+  f.className = "m-app";
+  f.setAttribute("sandbox", "allow-scripts allow-pointer-lock" + (m.allowSameOrigin ? " allow-same-origin" : ""));
+  f.setAttribute("referrerpolicy", "no-referrer");
+  f.title = m.title || "教材";
+  f.style.height = Math.min(Math.max(Number(m.height) || 480, 120), 2000) + "px";
+  f.srcdoc = html;
+  if(m.answer) APP_FRAMES.set(f, m.answer);
+  box.appendChild(f);
+}
+// アプリから解答を受け取る：parent.postMessage({ type: "exam-answer", value: ... }, "*")
+window.addEventListener("message", e => {
+  if(!active()) return;
+  for(const [f, id] of APP_FRAMES){
+    if(f.contentWindow !== e.source) continue;
+    const d = e.data;
+    if(d && d.type === "exam-answer"){
+      const v = typeof d.value === "string" ? d.value : JSON.stringify(d.value ?? "");
+      APP_VALUES[id] = v.slice(0, 20000);
+      onInput();
+      logEvt("app-answer", { id, v: APP_VALUES[id].slice(0, 200) });
+    }
+    return;
+  }
+});
+// 動画：コマ送り・時刻表示・スロー再生つき
+function mountVideo(box, m, url){
+  const fps = Math.min(Math.max(Number(m.fps) || 30, 1), 1000);
+  box.classList.add("m-vid");
+  box.innerHTML = `<video playsinline preload="auto" disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback"></video>
+    <div class="vctl">
+      <button type="button" data-a="play">再生</button>
+      <button type="button" data-a="back">◀ 1コマ</button>
+      <button type="button" data-a="fwd">1コマ ▶</button>
+      <input type="range" class="vseek" min="0" max="1" step="0.001" value="0" aria-label="再生位置">
+      <span class="vt"></span>
+      <select class="vrate" aria-label="再生速度"><option value="1">×1</option><option value="0.5">×1/2</option><option value="0.25">×1/4</option><option value="0.1">×1/10</option></select>
+    </div>`;
+  const v = box.querySelector("video"), seek = box.querySelector(".vseek"), vt = box.querySelector(".vt"), play = box.querySelector('[data-a="play"]');
+  v.src = url; v.muted = m.muted !== false;
+  if(m.width) v.style.maxWidth = Math.min(Number(m.width) || 0, 2000) + "px";
+  const show = () => {
+    vt.innerHTML = `<i>t</i> = ${v.currentTime.toFixed(3)} s（コマ ${Math.round(v.currentTime * fps)}）`;
+    if(isFinite(v.duration)){ seek.max = v.duration; seek.value = v.currentTime; }
+    play.textContent = v.paused ? "再生" : "一時停止";
+  };
+  let raf = 0;
+  const loop = () => { show(); if(!v.paused) raf = requestAnimationFrame(loop); };
+  ["loadedmetadata", "seeked", "pause", "ended", "timeupdate"].forEach(t => v.addEventListener(t, show));
+  v.addEventListener("play", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); });
+  const toggle = () => { if(v.paused) v.play().catch(() => {}); else v.pause(); };
+  const step = d => { v.pause(); v.currentTime = Math.min(Math.max(0, v.currentTime + d / fps), isFinite(v.duration) ? v.duration : 1e9); };
+  play.addEventListener("click", toggle);
+  v.addEventListener("click", toggle);
+  box.querySelector('[data-a="back"]').addEventListener("click", () => step(-1));
+  box.querySelector('[data-a="fwd"]').addEventListener("click", () => step(1));
+  seek.addEventListener("input", () => { v.currentTime = Number(seek.value); });
+  box.querySelector(".vrate").addEventListener("change", e => { v.playbackRate = Number(e.target.value); });
+  show();
+}
+
+/* ---------- 表計算 ---------- */
+// 列は物理量の記号（t, x, v, θ …）、行番号は 0 から。セルは x0, v12 のように書く。式は = で始める
+const NAMECH = "A-Za-z\\u0391-\\u03A9\\u03B1-\\u03C9";
+const COLNAME = new RegExp(`^[${NAMECH}]{1,6}$`);
+const FUNC_NAMES = ["SUM", "AVERAGE", "MIN", "MAX", "COUNT", "SQRT", "ABS", "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN",
+                    "EXP", "LN", "LOG", "LOG10", "PI", "RADIANS", "DEGREES", "ROUND", "SLOPE", "INTERCEPT"];
+class CellErr { constructor(code){ this.err = code; } }
+const BLANK = { blank: true };       // 空欄を参照した式は空欄にする（下へコピーした式がデータのない行で空欄になる）
+
+function tokenize(s){
+  const out = []; let i = 0;
+  const numRe = /^(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?/, idRe = new RegExp(`^([${NAMECH}]+)(\\$?)(\\d+)?`);
+  while(i < s.length){
+    const c = s[i];
+    if(/\s/.test(c)){ i++; continue; }
+    const rest = s.slice(i);
+    let m = numRe.exec(rest);
+    if(m){ out.push({ t: "num", v: parseFloat(m[0]) }); i += m[0].length; continue; }
+    m = idRe.exec(rest);
+    if(m){
+      i += m[0].length;
+      if(m[3] !== undefined) out.push({ t: "ref", name: m[1], row: Number(m[3]) });
+      else if(m[2]) throw "ref";
+      else out.push({ t: "id", v: m[1] });
+      continue;
+    }
+    if("+-*/^(),:".includes(c)){ out.push({ t: "op", v: c }); i++; continue; }
+    throw "tok";
+  }
+  return out;
+}
+function parseFormula(src){
+  const tk = tokenize(src); let i = 0;
+  const isOp = v => tk[i] && tk[i].t === "op" && tk[i].v === v;
+  const next = () => tk[i++];
+  function expr(){ let a = term(); while(isOp("+") || isOp("-")){ const op = next().v; a = { k: "bin", op, a, b: term() }; } return a; }
+  function term(){ let a = unary(); while(isOp("*") || isOp("/")){ const op = next().v; a = { k: "bin", op, a, b: unary() }; } return a; }
+  function unary(){ if(isOp("-")){ next(); return { k: "neg", a: unary() }; } if(isOp("+")){ next(); return unary(); } return power(); }
+  function power(){ const a = primary(); if(isOp("^")){ next(); return { k: "bin", op: "^", a, b: unary() }; } return a; }
+  function primary(){
+    const t = next();
+    if(!t) throw "end";
+    if(t.t === "num") return { k: "num", v: t.v };
+    if(t.t === "ref"){
+      if(isOp(":")){ next(); const b = next(); if(!b || b.t !== "ref") throw "range"; return { k: "range", a: t, b }; }
+      return { k: "ref", name: t.name, row: t.row };
+    }
+    if(t.t === "id"){
+      if(!isOp("(")) throw "id";
+      next();
+      const args = [];
+      if(!isOp(")")){ args.push(expr()); while(isOp(",")){ next(); args.push(expr()); } }
+      if(!isOp(")")) throw ")";
+      next();
+      return { k: "call", f: t.v.toUpperCase(), args };
+    }
+    if(t.t === "op" && t.v === "("){ const e = expr(); if(!isOp(")")) throw ")"; next(); return e; }
+    throw "tok";
+  }
+  const e = expr();
+  if(i < tk.length) throw "rest";
+  return e;
+}
+function refVal(v){
+  if(v === "") throw BLANK;
+  if(v instanceof CellErr) throw v;
+  if(typeof v !== "number") throw new CellErr("#VAL");
+  return v;
+}
+function evalNode(n, get){
+  switch(n.k){
+    case "num": return n.v;
+    case "ref": return refVal(get(n.name, n.row));
+    case "neg": return -evalNode(n.a, get);
+    case "bin": {
+      const a = evalNode(n.a, get), b = evalNode(n.b, get);
+      if(n.op === "+") return a + b;
+      if(n.op === "-") return a - b;
+      if(n.op === "*") return a * b;
+      if(n.op === "/"){ if(b === 0) throw new CellErr("#DIV0"); return a / b; }
+      return Math.pow(a, b);
+    }
+    case "call": return callFn(n.f, n.args, get);
+    default: throw new CellErr("#VAL");
+  }
+}
+function rangeOf(n){
+  if(n.k !== "range") return null;
+  if(n.a.name !== n.b.name) throw new CellErr("#REF");      // 範囲は同じ列の中だけ
+  return [n.a.name, Math.min(n.a.row, n.b.row), Math.max(n.a.row, n.b.row)];
+}
+function numsOf(args, get){
+  const out = [];
+  for(const a of args){
+    const rg = rangeOf(a);
+    if(rg){
+      for(let r = rg[1]; r <= rg[2]; r++){
+        const v = get(rg[0], r);
+        if(v instanceof CellErr) throw v;
+        if(typeof v === "number") out.push(v);
+      }
+    }else{
+      try{ out.push(evalNode(a, get)); }catch(e){ if(e !== BLANK) throw e; }
+    }
+  }
+  return out;
+}
+function pairsOf(yArg, xArg, get){
+  const ry = rangeOf(yArg), rx = rangeOf(xArg);
+  if(!ry || !rx || ry[2] - ry[1] !== rx[2] - rx[1]) throw new CellErr("#VAL");
+  const p = [];
+  for(let i = 0; i <= ry[2] - ry[1]; i++){
+    const y = get(ry[0], ry[1] + i), x = get(rx[0], rx[1] + i);
+    if(y instanceof CellErr) throw y;
+    if(x instanceof CellErr) throw x;
+    if(typeof x === "number" && typeof y === "number") p.push([x, y]);
+  }
+  return p;
+}
+// 最小二乗法による直線 y = a x + b（origin なら y = a x）
+function linfit(p, origin){
+  const n = p.length;
+  if(origin){
+    let sxy = 0, sxx = 0;
+    p.forEach(([x, y]) => { sxy += x * y; sxx += x * x; });
+    return n && sxx ? { a: sxy / sxx, b: 0, n } : null;
+  }
+  if(n < 2) return null;
+  let sx = 0, sy = 0;
+  p.forEach(([x, y]) => { sx += x; sy += y; });
+  const mx = sx / n, my = sy / n;
+  let sxy = 0, sxx = 0;
+  p.forEach(([x, y]) => { sxy += (x - mx) * (y - my); sxx += (x - mx) ** 2; });
+  if(!sxx) return null;
+  const a = sxy / sxx;
+  return { a, b: my - a * mx, n };
+}
+function callFn(f, args, get){
+  const one = () => { if(args.length !== 1) throw new CellErr("#ERR"); return evalNode(args[0], get); };
+  const two = () => { if(args.length !== 2) throw new CellErr("#ERR"); };
+  switch(f){
+    case "SUM": return numsOf(args, get).reduce((s, v) => s + v, 0);
+    case "AVERAGE": { const v = numsOf(args, get); if(!v.length) throw new CellErr("#DIV0"); return v.reduce((s, x) => s + x, 0) / v.length; }
+    case "MIN": { const v = numsOf(args, get); if(!v.length) throw BLANK; return Math.min(...v); }
+    case "MAX": { const v = numsOf(args, get); if(!v.length) throw BLANK; return Math.max(...v); }
+    case "COUNT": return numsOf(args, get).length;
+    case "SQRT": { const v = one(); if(v < 0) throw new CellErr("#NUM"); return Math.sqrt(v); }
+    case "ABS": return Math.abs(one());
+    case "SIN": return Math.sin(one());
+    case "COS": return Math.cos(one());
+    case "TAN": return Math.tan(one());
+    case "ASIN": return Math.asin(one());
+    case "ACOS": return Math.acos(one());
+    case "ATAN": return Math.atan(one());
+    case "EXP": return Math.exp(one());
+    case "LN": { const v = one(); if(v <= 0) throw new CellErr("#NUM"); return Math.log(v); }
+    case "LOG": case "LOG10": { const v = one(); if(v <= 0) throw new CellErr("#NUM"); return Math.log10(v); }
+    case "PI": if(args.length) throw new CellErr("#ERR"); return Math.PI;
+    case "RADIANS": return one() * Math.PI / 180;
+    case "DEGREES": return one() * 180 / Math.PI;
+    case "ROUND": { two(); const v = evalNode(args[0], get), d = Math.round(evalNode(args[1], get)); const m = 10 ** d; return Math.round(v * m) / m; }
+    case "SLOPE": case "INTERCEPT": {
+      two();
+      const fit = linfit(pairsOf(args[0], args[1], get), false);
+      if(!fit) throw new CellErr("#DIV0");
+      return f === "SLOPE" ? fit.a : fit.b;
+    }
+    default: throw new CellErr("#NAME");
+  }
+}
+// 下へコピーするときに、式の中の行番号を1行ずつずらす（$ を付けた行番号 x$0 はずらさない）
+function shiftRefs(raw, dr){
+  if(!String(raw).startsWith("=")) return raw;
+  const re = new RegExp(`(?<![0-9.${NAMECH}$])([${NAMECH}]+)(\\$?)(\\d+)(?![\\d.]|\\s*\\()`, "g");
+  return raw.replace(re, (m, name, abs, row) => abs ? m : name + (Number(row) + dr));
+}
+function fmtNum(v){
+  if(!isFinite(v)) return "#NUM";
+  if(v === 0) return "0";
+  const a = Math.abs(v);
+  if(a >= 1e6 || a < 1e-4) return v.toExponential(3).replace("e+", "e");
+  return String(Number(v.toPrecision(6)));
+}
+function unitParen(u){ return /[\/\s·*]/.test(u) ? `(${u})` : u; }
+function headLabel(c){ return `<i>${esc(c.name)}</i>${c.unit ? " / " + esc(unitParen(c.unit)) : ""}`; }
+function niceStep(range, n){
+  const raw = range / n, p = 10 ** Math.floor(Math.log10(raw)), f = raw / p;
+  return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+}
+
+class Sheet {
+  constructor(box, spec, onChange){
+    this.box = box; this.spec = spec; this.onChange = onChange || (() => {});
+    this.cols = (spec.columns || []).map(c => ({ name: c.name, unit: c.unit || "", base: true }));
+    const data = Array.isArray(spec.data) ? spec.data : [];
+    this.rows = Math.min(Math.max(Number(spec.rows) || 20, data.length, 1), 100);
+    this.base = {}; this.cells = {};
+    const target = spec.lock ? this.base : this.cells;      // lock なら、与えたデータは生徒が書き換えられない
+    data.forEach((row, r) => (row || []).forEach((v, c) => {
+      if(v !== null && v !== undefined && v !== "" && this.cols[c]) target[this.cols[c].name + r] = String(v);
+    }));
+    this.graph = { x: this.cols[0] ? this.cols[0].name : "", y: this.cols[1] ? this.cols[1].name : "", fit: "none" };
+    this.fit = null;
+    this.sel = { c: 0, r: 0 };
+    this.ast = new Map();
+    this.build();
+    this.update(false);
+  }
+  raw(name, r){ const k = name + r; return k in this.base ? this.base[k] : (this.cells[k] ?? ""); }
+  locked(name, r){ return (name + r) in this.base; }
+  recalc(){
+    const vals = new Map(), visiting = new Set(), names = new Set(this.cols.map(c => c.name));
+    const get = (name, r) => {
+      if(!names.has(name) || r < 0 || r >= this.rows) return new CellErr("#REF");
+      const k = name + r;
+      if(vals.has(k)) return vals.get(k);
+      if(visiting.has(k)) return new CellErr("#CYC");
+      visiting.add(k);
+      const v = this.evalRaw(this.raw(name, r), get);
+      visiting.delete(k);
+      vals.set(k, v);
+      return v;
+    };
+    this.get = get;
+    this.cols.forEach(c => { for(let r = 0; r < this.rows; r++) get(c.name, r); });
+  }
+  evalRaw(raw, get){
+    const s = String(raw).trim();
+    if(s === "") return "";
+    if(s[0] === "="){
+      let ast = this.ast.get(s);
+      if(!ast){ try{ ast = parseFormula(s.slice(1)); }catch(e){ ast = { k: "bad" }; } this.ast.set(s, ast); }
+      if(ast.k === "bad") return new CellErr("#ERR");
+      try{
+        const v = evalNode(ast, get);
+        return isFinite(v) ? v : new CellErr("#NUM");
+      }catch(e){
+        if(e === BLANK) return "";
+        if(e instanceof CellErr) return e;
+        return new CellErr("#ERR");
+      }
+    }
+    const n = normNum(s);
+    if(/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(n)) return Number(n);
+    return s;
+  }
+  build(){
+    const graph = this.spec.graph !== false;
+    this.box.classList.add("sheet");
+    this.box.innerHTML = `
+      <div class="sh-bar"><span class="sh-ref"></span><input class="sh-fx" spellcheck="false" autocomplete="off" aria-label="セルの内容" placeholder="値、または = で始まる式（例 =(x1-x0)/(t1-t0)）"></div>
+      <div class="sh-tools">
+        <button type="button" data-a="fill">下へ式をコピー</button>
+        <button type="button" data-a="clear">セルを消す</button>
+        <button type="button" data-a="addrow">行を増やす</button>
+        <span class="sh-addcol"><input class="sh-cname" placeholder="記号" maxlength="6" aria-label="新しい列の記号"><input class="sh-cunit" placeholder="単位" maxlength="12" aria-label="新しい列の単位"><button type="button" data-a="addcol">列を追加</button></span>
+      </div>
+      <div class="sh-grid" tabindex="0"><table></table></div>
+      <p class="sh-msg" aria-live="polite"></p>
+      ${graph ? `<div class="sh-graph">
+        <div class="sh-gctl">横軸 <select class="sh-gx"></select>　縦軸 <select class="sh-gy"></select>　近似 <select class="sh-gfit"><option value="none">なし</option><option value="line">直線</option><option value="origin">原点を通る直線</option></select></div>
+        <svg class="sh-svg" viewBox="0 0 560 340" role="img" aria-label="グラフ"></svg>
+        <div class="sh-fit"></div></div>` : ""}`;
+    const $b = s => this.box.querySelector(s);
+    this.fx = $b(".sh-fx"); this.grid = $b(".sh-grid"); this.table = $b("table"); this.msgEl = $b(".sh-msg");
+    this.svg = $b(".sh-svg"); this.fitEl = $b(".sh-fit");
+    // 式を書いている間にセルを押すと、そのセルの名前（x3 など）が式に入る
+    this.table.addEventListener("pointerdown", e => {
+      const td = e.target.closest("td[data-c]");
+      if(!td || document.activeElement !== this.fx || !this.fx.value.trim().startsWith("=")) return;
+      e.preventDefault();
+      const name = this.cols[Number(td.dataset.c)].name + td.dataset.r;
+      const s = this.fx.selectionStart ?? this.fx.value.length, t = this.fx.selectionEnd ?? s;
+      this.fx.value = this.fx.value.slice(0, s) + name + this.fx.value.slice(t);
+      this.fx.setSelectionRange(s + name.length, s + name.length);
+      this.insertedRef = true;
+    });
+    // タップや押したセルを選ぶ（触って画面を動かしただけでは入力にならない）
+    this.table.addEventListener("click", e => {
+      if(this.insertedRef){ this.insertedRef = false; return; }
+      const td = e.target.closest("td[data-c]");
+      if(td){ this.commit(); this.select(Number(td.dataset.c), Number(td.dataset.r)); this.grid.focus({ preventScroll: true }); return; }
+      const del = e.target.closest("[data-del]");
+      if(del) this.delCol(Number(del.dataset.del));
+    });
+    this.grid.addEventListener("keydown", e => this.gridKey(e));
+    this.fx.addEventListener("keydown", e => {
+      if(e.key === "Enter"){ e.preventDefault(); this.commit(); this.move(0, 1); this.grid.focus({ preventScroll: true }); }
+      else if(e.key === "Tab"){ e.preventDefault(); this.commit(); this.move(1, 0); this.grid.focus({ preventScroll: true }); }
+      else if(e.key === "Escape"){ e.preventDefault(); this.select(this.sel.c, this.sel.r); this.grid.focus({ preventScroll: true }); }
+    });
+    this.fx.addEventListener("blur", () => this.commit());
+    this.box.querySelector(".sh-tools").addEventListener("click", e => {
+      const a = e.target.closest("button[data-a]"); if(!a) return;
+      ({ fill: () => this.fillDown(), clear: () => this.setCell(""), addrow: () => this.addRows(5), addcol: () => this.addCol() })[a.dataset.a]();
+    });
+    if(graph){
+      const onG = () => {
+        this.graph = { x: $b(".sh-gx").value, y: $b(".sh-gy").value, fit: $b(".sh-gfit").value };
+        this.drawGraph(); this.changed({ graph: this.graph });
+      };
+      ["sh-gx", "sh-gy", "sh-gfit"].forEach(c => $b("." + c).addEventListener("change", onG));
+    }
+  }
+  msg(t){ this.msgEl.textContent = t || ""; }
+  colName(){ const c = this.cols[this.sel.c]; return c ? c.name : ""; }
+  select(c, r){
+    this.sel = { c: Math.min(Math.max(c, 0), this.cols.length - 1), r: Math.min(Math.max(r, 0), this.rows - 1) };
+    const name = this.colName(), lock = this.locked(name, this.sel.r);
+    this.fx.value = this.raw(name, this.sel.r);
+    this.fx.readOnly = lock;
+    this.box.querySelector(".sh-ref").textContent = name + this.sel.r + (lock ? "（変更できません）" : "");
+    this.table.querySelectorAll("td.sel").forEach(td => td.classList.remove("sel"));
+    const td = this.table.querySelector(`td[data-c="${this.sel.c}"][data-r="${this.sel.r}"]`);
+    if(td){ td.classList.add("sel"); td.scrollIntoView({ block: "nearest", inline: "nearest" }); }
+    this.msg("");
+  }
+  move(dc, dr){ this.select(this.sel.c + dc, this.sel.r + dr); }
+  gridKey(e){
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key;
+    if(k === "ArrowDown"){ e.preventDefault(); this.move(0, 1); }
+    else if(k === "ArrowUp"){ e.preventDefault(); this.move(0, -1); }
+    else if(k === "ArrowRight"){ e.preventDefault(); this.move(1, 0); }
+    else if(k === "ArrowLeft"){ e.preventDefault(); this.move(-1, 0); }
+    else if(k === "Enter" || k === "F2"){ e.preventDefault(); if(!this.fx.readOnly){ this.fx.focus(); this.fx.setSelectionRange(this.fx.value.length, this.fx.value.length); } }
+    else if(k === "Delete" || k === "Backspace"){ e.preventDefault(); this.setCell(""); }
+    else if(k.length === 1 && !this.fx.readOnly){ e.preventDefault(); this.fx.value = k; this.fx.focus(); }
+  }
+  setCell(v){
+    const name = this.colName(), r = this.sel.r;
+    if(!name || this.locked(name, r)) return;
+    const k = name + r, cur = this.cells[k] ?? "";
+    v = String(v).trim();
+    if(v === cur) return;
+    if(v === "") delete this.cells[k]; else this.cells[k] = v;
+    this.update(true, { cell: k, v });
+    this.fx.value = v;
+  }
+  commit(){ if(!this.fx.readOnly && this.fx.value.trim() !== String(this.raw(this.colName(), this.sel.r))) this.setCell(this.fx.value); }
+  fillDown(){
+    this.commit();
+    const name = this.colName(), r0 = this.sel.r, raw = this.raw(name, r0);
+    if(!raw){ this.msg("コピーする式（または値）が入ったセルを選んでください。"); return; }
+    // ほかの列でデータが入っている最後の行まで（なければ最後の行まで）
+    let last = -1;
+    this.cols.forEach(c => { if(c.name === name) return; for(let r = this.rows - 1; r > last; r--) if(this.raw(c.name, r) !== ""){ last = r; break; } });
+    if(last <= r0) last = this.rows - 1;
+    let n = 0;
+    for(let r = r0 + 1; r <= last; r++){
+      if(this.locked(name, r)) continue;
+      this.cells[name + r] = shiftRefs(raw, r - r0); n++;
+    }
+    this.update(true, { fill: name + r0, to: last });
+    this.msg(`${name}${r0 + 1} から ${name}${last} まで、${n} 個のセルにコピーしました。`);
+  }
+  addRows(n){
+    if(this.rows >= 100){ this.msg("これ以上は増やせません（100 行まで）。"); return; }
+    this.rows = Math.min(100, this.rows + n);
+    this.update(true, { rows: this.rows });
+  }
+  addCol(){
+    const ni = this.box.querySelector(".sh-cname"), ui = this.box.querySelector(".sh-cunit");
+    const name = ni.value.normalize("NFKC").trim(), unit = ui.value.trim();
+    if(!COLNAME.test(name)) return this.msg("記号は、ローマ字かギリシャ文字で 6 文字までにしてください（数字は使えません）。");
+    if(this.cols.some(c => c.name === name)) return this.msg(`「${name}」の列はすでにあります。`);
+    if(FUNC_NAMES.includes(name.toUpperCase())) return this.msg(`「${name}」は関数の名前なので使えません。`);
+    if(this.cols.length >= 12) return this.msg("列は 12 個までです。");
+    this.cols.push({ name, unit, base: false });
+    ni.value = ""; ui.value = "";
+    this.update(true, { addcol: name, unit });
+    this.select(this.cols.length - 1, 0);
+  }
+  delCol(i){
+    const c = this.cols[i];
+    if(!c || c.base) return;
+    Object.keys(this.cells).forEach(k => { if(k.startsWith(c.name) && /^\d+$/.test(k.slice(c.name.length))) delete this.cells[k]; });
+    this.cols.splice(i, 1);
+    if(this.sel.c >= this.cols.length) this.sel.c = this.cols.length - 1;
+    this.update(true, { delcol: c.name });
+  }
+  update(notify, detail){
+    this.recalc(); this.render(); this.syncGraphCtl(); this.drawGraph();
+    if(notify) this.changed(detail);
+  }
+  changed(detail){ this.onChange(this.spec.id, detail); }
+  show(v){ return v === "" ? "" : v instanceof CellErr ? v.err : typeof v === "number" ? fmtNum(v) : v; }
+  render(){
+    const head = `<tr><th class="corner"></th>${this.cols.map((c, i) =>
+      `<th>${headLabel(c)}${c.base ? "" : ` <button type="button" class="sh-del" data-del="${i}" title="この列を消す">×</button>`}</th>`).join("")}</tr>`;
+    let body = "";
+    for(let r = 0; r < this.rows; r++){
+      body += `<tr><th>${r}</th>` + this.cols.map((c, ci) => {
+        const v = this.get(c.name, r), raw = this.raw(c.name, r);
+        const cls = [this.locked(c.name, r) ? "lock" : "", v instanceof CellErr ? "err" : "", String(raw).startsWith("=") ? "fx" : "",
+                     typeof v === "number" ? "num" : "", ci === this.sel.c && r === this.sel.r ? "sel" : ""].filter(Boolean).join(" ");
+        // 打ち込んだ数値は入れたとおりに表示する（0.50 を 0.5 にしない）。式の結果は 6 桁まで
+        const text = typeof v === "number" && !String(raw).startsWith("=") ? normNum(String(raw).trim()) : this.show(v);
+        return `<td data-c="${ci}" data-r="${r}" class="${cls}">${esc(text)}</td>`;
+      }).join("") + "</tr>";
+    }
+    this.table.innerHTML = `<thead>${head}</thead><tbody>${body}</tbody>`;
+    const name = this.colName();
+    this.box.querySelector(".sh-ref").textContent = name + this.sel.r + (this.locked(name, this.sel.r) ? "（変更できません）" : "");
+    if(document.activeElement !== this.fx){ this.fx.value = this.raw(name, this.sel.r); this.fx.readOnly = this.locked(name, this.sel.r); }
+  }
+  syncGraphCtl(){
+    if(!this.svg) return;
+    const opts = this.cols.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+    const gx = this.box.querySelector(".sh-gx"), gy = this.box.querySelector(".sh-gy");
+    gx.innerHTML = opts; gy.innerHTML = opts;
+    const names = this.cols.map(c => c.name);
+    if(!names.includes(this.graph.x)) this.graph.x = names[0] || "";
+    if(!names.includes(this.graph.y)) this.graph.y = names[1] || names[0] || "";
+    gx.value = this.graph.x; gy.value = this.graph.y;
+    this.box.querySelector(".sh-gfit").value = this.graph.fit;
+  }
+  points(){
+    const p = [];
+    if(!this.cols.some(c => c.name === this.graph.x) || !this.cols.some(c => c.name === this.graph.y)) return p;
+    for(let r = 0; r < this.rows; r++){
+      const x = this.get(this.graph.x, r), y = this.get(this.graph.y, r);
+      if(typeof x === "number" && typeof y === "number") p.push([x, y]);
+    }
+    return p;
+  }
+  drawGraph(){
+    if(!this.svg) return;
+    const cx = this.cols.find(c => c.name === this.graph.x), cy = this.cols.find(c => c.name === this.graph.y);
+    const pts = this.points();
+    this.fit = this.graph.fit === "none" ? null : linfit(pts, this.graph.fit === "origin");
+    const W = 560, H = 340, L = 70, R = 18, T = 14, B = 52;
+    const lab = (c, x, y, rot) => c ? `<text x="${x}" y="${y}" text-anchor="middle" ${rot ? `transform="rotate(-90 ${x} ${y})"` : ""} class="ax-l"><tspan font-style="italic">${esc(c.name)}</tspan>${c.unit ? " / " + esc(unitParen(c.unit)) : ""}</text>` : "";
+    if(!pts.length){
+      this.svg.innerHTML = `<rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" class="ax-box"/><text x="${(L + W - R) / 2}" y="${(T + H - B) / 2}" text-anchor="middle" class="ax-empty">横軸と縦軸の列に数値が入ると、点が表示されます</text>` +
+        lab(cx, (L + W - R) / 2, H - 12) + lab(cy, 18, (T + H - B) / 2, true);
+      this.fitEl.innerHTML = "";
+      return;
+    }
+    const range = vals => {
+      let lo = Math.min(...vals), hi = Math.max(...vals);
+      if(lo >= 0 && hi > 0) lo = 0;                 // すべて正なら原点から
+      if(hi <= 0 && lo < 0) hi = 0;
+      if(lo === hi){ lo -= 1; hi += 1; }
+      const st = niceStep(hi - lo, 5);
+      return { lo: Math.floor(lo / st) * st, hi: Math.ceil(hi / st) * st, st };
+    };
+    const rx = range(pts.map(p => p[0])), ry = range(pts.map(p => p[1]));
+    const sx = x => L + (x - rx.lo) / (rx.hi - rx.lo) * (W - L - R);
+    const sy = y => H - B - (y - ry.lo) / (ry.hi - ry.lo) * (H - T - B);
+    const tick = v => String(Number(v.toPrecision(10)));
+    let g = `<rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" class="ax-box"/>`;
+    for(let v = rx.lo; v <= rx.hi + rx.st / 2; v += rx.st){ const X = sx(v); g += `<line x1="${X}" y1="${T}" x2="${X}" y2="${H - B}" class="ax-grid"/><text x="${X}" y="${H - B + 18}" text-anchor="middle" class="ax-t">${tick(v)}</text>`; }
+    for(let v = ry.lo; v <= ry.hi + ry.st / 2; v += ry.st){ const Y = sy(v); g += `<line x1="${L}" y1="${Y}" x2="${W - R}" y2="${Y}" class="ax-grid"/><text x="${L - 6}" y="${Y + 4}" text-anchor="end" class="ax-t">${tick(v)}</text>`; }
+    if(this.fit){
+      const f = x => this.fit.a * x + this.fit.b;
+      g += `<clipPath id="clip-${esc(this.spec.id)}"><rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}"/></clipPath>` +
+           `<line x1="${sx(rx.lo)}" y1="${sy(f(rx.lo))}" x2="${sx(rx.hi)}" y2="${sy(f(rx.hi))}" class="ax-fit" clip-path="url(#clip-${esc(this.spec.id)})"/>`;
+    }
+    g += pts.map(([x, y]) => `<circle cx="${sx(x)}" cy="${sy(y)}" r="3.6" class="ax-pt"/>`).join("");
+    g += lab(cx, (L + W - R) / 2, H - 12) + lab(cy, 18, (T + H - B) / 2, true);
+    this.svg.innerHTML = g;
+    if(this.fit){
+      const ux = cx ? cx.unit : "", uy = cy ? cy.unit : "";
+      const su = uy && ux ? `${unitParen(uy)}/${unitParen(ux)}` : uy ? uy : ux ? `1/${unitParen(ux)}` : "";
+      const p4 = v => Number(v).toPrecision(4);
+      this.fitEl.innerHTML = `傾き ${p4(this.fit.a)}${su ? " " + esc(su) : ""}` +
+        (this.graph.fit === "origin" ? "（原点を通る直線）" : `　切片 ${p4(this.fit.b)}${uy ? " " + esc(uy) : ""}`) + `　（${this.fit.n} 点から）`;
+    }else this.fitEl.innerHTML = this.graph.fit === "none" ? "" : "近似には 2 点以上が必要です。";
+  }
+  // 提出する中身：列、生徒が入れたセル（式のまま）、計算された値、グラフと近似の結果
+  serialize(){
+    const values = {};
+    const keys = new Set([...Object.keys(this.base), ...Object.keys(this.cells)]);
+    keys.forEach(k => {                       // 計算結果は、式のセルだけ（打ち込んだ値は cells に入っている）
+      const m = new RegExp(`^([${NAMECH}]+)(\\d+)$`).exec(k);
+      if(!m || !String(this.raw(m[1], Number(m[2]))).startsWith("=")) return;
+      const v = this.get(m[1], Number(m[2]));
+      values[k] = v instanceof CellErr ? v.err : v;
+    });
+    return JSON.stringify({
+      cols: this.cols.map(c => c.base ? { name: c.name, unit: c.unit } : { name: c.name, unit: c.unit, added: true }),
+      rows: this.rows, cells: this.cells, values, graph: this.graph,
+      fit: this.fit ? { a: this.fit.a, b: this.fit.b, n: this.fit.n } : null
+    });
+  }
+  load(text){
+    let d;
+    try{ d = JSON.parse(text); }catch(e){ return; }
+    if(!d || typeof d !== "object") return;
+    (d.cols || []).forEach(c => {
+      if(c && c.added && COLNAME.test(c.name) && !this.cols.some(x => x.name === c.name) && this.cols.length < 12)
+        this.cols.push({ name: c.name, unit: String(c.unit || "").slice(0, 12), base: false });
+    });
+    this.rows = Math.min(Math.max(Number(d.rows) || this.rows, this.rows), 100);
+    const names = new Set(this.cols.map(c => c.name));
+    this.cells = {};
+    Object.entries(d.cells || {}).forEach(([k, v]) => {
+      const m = new RegExp(`^([${NAMECH}]+)(\\d+)$`).exec(k);
+      if(m && names.has(m[1]) && Number(m[2]) < this.rows && !(k in this.base)) this.cells[k] = String(v).slice(0, 500);
+    });
+    if(d.graph && typeof d.graph === "object") this.graph = { x: String(d.graph.x || ""), y: String(d.graph.y || ""), fit: ["none", "line", "origin"].includes(d.graph.fit) ? d.graph.fit : "none" };
+    this.update(false);
+  }
+}
+
 /* ---------- 問題の描画と回答 ---------- */
+function answerable(q){ return q.type !== "info"; }
+// 回答として提出するもの：問題、表計算、解答を返すアプリ
+function answerIds(qs){
+  const ids = qs.filter(answerable).map(q => q.id);
+  qs.forEach(q => (q.media || []).forEach(m => { if(m.kind === "sheet") ids.push(m.id); if(m.kind === "app" && m.answer) ids.push(m.answer); }));
+  return ids;
+}
+function nAnswerable(){ return QUESTIONS.filter(answerable).length; }
 function renderQuestions(wrap, qs, seed){
   wrap.innerHTML = "";
-  qs.forEach((q, i) => {
+  APP_FRAMES.clear();
+  Object.keys(SHEETS).forEach(k => delete SHEETS[k]);
+  let no = 0;
+  qs.forEach(q => {
     const sec = document.createElement("section");
-    sec.className = "q";
+    const info = !answerable(q);
+    sec.className = info ? "q info" : "q";
+    const media = (q.media || []).map((m, i) => `<div class="media" data-q="${q.id}" data-i="${i}"></div>`).join("");
+    if(info){
+      sec.innerHTML = (q.title ? `<div class="qhead"><span class="qno">${q.title}</span></div>` : "") + `<div class="qtext">${q.text}</div>` + media;
+      wrap.appendChild(sec);
+      return;
+    }
+    no++;
     const hint = q.type === "multi" ? '<span class="hint">あてはまるものをすべて選ぶ</span>' : "";
     let body;
     if(q.type === "choice" || q.type === "multi"){
@@ -458,13 +1262,20 @@ function renderQuestions(wrap, qs, seed){
       const max = Math.min(Number(q.maxLength) || 4000, 20000);
       body = `<textarea name="${q.id}" rows="${Number(q.rows) || 5}" maxlength="${max}" spellcheck="false"></textarea>`;
     }
-    sec.innerHTML = `<div class="qhead"><span class="qno">問${i + 1}</span>${q.points ? `<span class="pts">${q.points}点</span>` : ""}${hint}</div><div class="qtext">${q.text}</div>${body}`;
+    sec.innerHTML = `<div class="qhead"><span class="qno">問${no}</span>${q.points ? `<span class="pts">${q.points}点</span>` : ""}${hint}</div><div class="qtext">${q.text}</div>${media}${body}`;
     wrap.appendChild(sec);
   });
+}
+// 表計算を操作したら、回答として保存し、記録にも残す
+function onSheetChange(id, detail){
+  if(!active()) return;
+  S.answers = collect(); save(); updateProgress();
+  logEvt("sheet", { id, ...detail });
 }
 function collect(){
   const w = $("#qs"), a = {};
   for(const q of QUESTIONS){
+    if(!answerable(q)) continue;
     if(q.type === "choice"){
       const c = w.querySelector(`input[name="${q.id}"]:checked`);
       a[q.id] = c ? c.value : "";
@@ -477,6 +1288,8 @@ function collect(){
       a[q.id] = q.type === "number" ? normNum(v) : v.trim();
     }
   }
+  Object.keys(SHEETS).forEach(id => { a[id] = SHEETS[id].serialize(); });
+  appAnswerIds(QUESTIONS).forEach(id => { a[id] = APP_VALUES[id] ?? (S.answers[id] || ""); });
   return a;
 }
 // 数値の答えは全角の英数字・記号といろいろな「マイナス」だけをそろえる（３．０ → 3.0、−2 → -2）。
@@ -487,7 +1300,10 @@ function normNum(v){
 }
 function restore(a){
   const w = $("#qs");
+  Object.keys(SHEETS).forEach(id => { if(a[id]) SHEETS[id].load(a[id]); });
+  appAnswerIds(QUESTIONS).forEach(id => { if(a[id]) APP_VALUES[id] = a[id]; });
   for(const q of QUESTIONS){
+    if(!answerable(q)) continue;
     const v = a[q.id]; if(!v) continue;
     if(q.type === "choice" || q.type === "multi"){
       w.querySelectorAll(`input[name="${q.id}"]`).forEach(x => { x.checked = v.includes(x.value); });
@@ -496,8 +1312,8 @@ function restore(a){
     }
   }
 }
-function answeredCount(a){ return QUESTIONS.filter(q => a[q.id]).length; }
-function updateProgress(){ $("#progress").textContent = `回答 ${answeredCount(S.answers)} / ${QUESTIONS.length} 問`; }
+function answeredCount(a){ return QUESTIONS.filter(q => answerable(q) && a[q.id]).length; }
+function updateProgress(){ $("#progress").textContent = `回答 ${answeredCount(S.answers)} / ${nAnswerable()} 問`; }
 
 let savedTimer = null;
 function onInput(){
@@ -605,7 +1421,14 @@ document.addEventListener("fullscreenchange", () => {
 document.addEventListener("visibilitychange", () => {
   if(document.hidden) leave("hidden"); else logEvt("visible");
 });
-window.addEventListener("blur", () => leave("blur"));
+// 試験の中の教材（ウェブアプリ）を操作すると、ページの外へ出なくても blur が起きる。
+// そのときはページ全体としてはフォーカスを持ったまま（hasFocus が true）なので、離脱に数えない
+window.addEventListener("blur", () => {
+  setTimeout(() => {
+    if(document.hasFocus()){ logEvt("focus-app"); return; }
+    leave("blur");
+  }, 0);
+});
 window.addEventListener("focus", () => logEvt("focus"));
 ["copy", "cut", "paste", "contextmenu", "dragstart", "drop"].forEach(t =>
   document.addEventListener(t, e => {
@@ -728,9 +1551,11 @@ async function onNext(){
     }
     const code = normCode($("#f-code").value);
     if(!code) return entryErr("開始コードを入力してください。");
-    let data;
+    let data, assets;
     try{ data = await unseal(code); }
     catch(e){ return entryErr("開始コードが違います。監督者の指示を待ってください。"); }
+    try{ btn.textContent = "教材を準備しています…"; assets = await unsealAssets(data); }
+    catch(e){ return entryErr("教材を開けませんでした。ページを再読み込みしてから、もう一度試してください。"); }
 
     let starts = 0, offline = false, firstStart = 0, backupAnswers = null;
     if(CONFIG.submitUrl){
@@ -748,7 +1573,7 @@ async function onNext(){
         if(r.backup && typeof r.backup === "object") backupAnswers = r.backup;
       }
     }
-    pending = { student, code, questions: data.questions, starts, offline, firstStart, backup: backupAnswers };
+    pending = { student, code, questions: data.questions, assets, starts, offline, firstStart, backup: backupAnswers };
     openBegin();
   }finally{
     busy = false; btn.disabled = false; btn.textContent = "次へ";
@@ -809,7 +1634,7 @@ async function onBegin(){
     QUESTIONS = p.questions;
     // 再開始のときは、サーバーに預けてあった途中の回答を引き継ぐ（今の問題にある答えだけ）
     if(p.starts > 0 && p.backup){
-      QUESTIONS.forEach(q => { const v = p.backup[q.id]; if(typeof v === "string") S.answers[q.id] = v; });
+      answerIds(QUESTIONS).forEach(id => { const v = p.backup[id]; if(typeof v === "string") S.answers[id] = v; });
       S.backedUp = JSON.stringify(S.answers);
     }
     logEvt("start", { app: APP_VERSION, ua: navigator.userAgent, starts: p.starts, offline: p.offline,
@@ -821,6 +1646,7 @@ async function onBegin(){
     await enterFS();                      // ボタン操作の直後なので全画面を要求できる
     closeModal("begin");
     renderQuestions($("#qs"), QUESTIONS, S.submissionId);
+    mountMedia($("#qs"), QUESTIONS, assetProvider(p.assets), onSheetChange);
     restore(S.answers);
     fillBar(); applyLevel(); updateProgress();
     show("scr-exam"); window.scrollTo(0, 0);
@@ -840,7 +1666,7 @@ function fillBar(){
 /* ---------- 提出 ---------- */
 function askSubmit(){
   S.answers = collect(); save();
-  const left = QUESTIONS.length - answeredCount(S.answers);
+  const left = nAnswerable() - answeredCount(S.answers);
   $("#c-msg").textContent = left > 0 ? `未回答の問題が ${left} 問あります。` : "すべての問題に回答しています。";
   openModal("confirm");
 }
@@ -887,7 +1713,7 @@ function renderDone(){
   const el = $("#d-status"); el.textContent = txt; el.className = "status " + cls;
   $("#d-help").textContent = help;
   $("#d-summary").textContent = S.student
-    ? `${whoText(S.student)}　／　回答 ${answeredCount(S.answers || {})} / ${QUESTIONS.length} 問　／　離脱 ${S.awayCount} 回`
+    ? `${whoText(S.student)}　／　回答 ${answeredCount(S.answers || {})} / ${nAnswerable()} 問　／　離脱 ${S.awayCount} 回`
     : "";
   $("#btn-retry").hidden = !(CONFIG.submitUrl && !S.sent && (S.attempts > 0 || S.rejected));
   $("#btn-download").hidden = !(!CONFIG.submitUrl || (!S.sent && (S.attempts >= 3 || S.rejected)));
@@ -987,13 +1813,20 @@ async function init(){
   bind();
 
   if(S.phase === "exam" || S.phase === "done"){
-    try{ QUESTIONS = (await unseal(S.code)).questions; }
-    catch(e){
+    let data, assets = {};
+    try{
+      data = await unseal(S.code);
+      QUESTIONS = data.questions;
+      if(S.phase === "exam") assets = await unsealAssets(data);
+    }catch(e){
       $("#none-msg").textContent = "この端末に保存されている受験データを開けませんでした（試験ファイルが差し替えられた可能性があります）。監督者を呼んでください。";
       show("scr-none"); return;
     }
-    renderQuestions($("#qs"), QUESTIONS, S.submissionId);
-    restore(S.answers);
+    if(S.phase === "exam"){           // 提出後は問題も教材も表示しない
+      renderQuestions($("#qs"), QUESTIONS, S.submissionId);
+      mountMedia($("#qs"), QUESTIONS, assetProvider(assets), onSheetChange);
+      restore(S.answers);
+    }
   }
   if(S.phase === "done"){
     renderDone(); flush();
@@ -1011,23 +1844,6 @@ async function init(){
 /* =====================================================================
    作成画面（#build）
    ===================================================================== */
-// ひな形（問題文は入れない。見本の試験は exam-sample.json を読み込む）
-const SKELETON = {
-  id: "2026-kimatsu-butsuri",
-  title: "試験名",
-  durationMin: 50,
-  submitUrl: "",
-  useToken: false,
-  requirePinAfter: 2,
-  shuffleOptions: true,
-  endsAt: "",
-  questions: [
-    { id: "q1", type: "choice", points: 5, text: "（問題文）", options: ["（選択肢）", "（選択肢）", "（選択肢）", "（選択肢）"] },
-    { id: "q2", type: "number", points: 5, text: "（問題文）", label: "<i>x</i> =", unit: "m" },
-    { id: "q3", type: "multi", points: 5, text: "（問題文）", options: ["（選択肢）", "（選択肢）", "（選択肢）"], shuffle: false },
-    { id: "q4", type: "text", points: 10, text: "（問題文）", rows: 5, maxLength: 800 }
-  ]
-};
 function buildErr(m){ $("#b-err").textContent = m || ""; }
 // "2026-11-10T10:50"（この端末の時刻）や "2026-11-10T10:50+09:00" を受け付ける
 function parseEnds(s){
@@ -1038,38 +1854,87 @@ function parseEnds(s){
 }
 function validate(c){
   if(!c || typeof c !== "object" || Array.isArray(c)) return "JSON の一番外側は { } にしてください。";
-  if(!/^[A-Za-z0-9_-]{1,60}$/.test(c.id || "")) return "id は半角英数字・ハイフン・下線で書いてください（試験ごとに変える）。";
-  if(!c.title || typeof c.title !== "string") return "title（試験名）がありません。";
-  if(!(Number(c.durationMin) > 0 && Number(c.durationMin) <= 600)) return "durationMin（試験時間 / min）は 0 より大きく 600 以下にしてください。";
+  if(!/^[A-Za-z0-9_-]{1,60}$/.test(c.id || "")) return "試験の ID（id）は、半角英数字・ハイフン・下線で書いてください（試験ごとに変える）。";
+  if(!c.title || typeof c.title !== "string") return "試験名（title）を入れてください。";
+  if(!(Number(c.durationMin) > 0 && Number(c.durationMin) <= 600)) return "試験時間（durationMin）は 0 より大きく 600 以下にしてください。";
   if(c.submitUrl && !/^(https:\/\/|http:\/\/(localhost|127\.0\.0\.1)[:/])/.test(c.submitUrl)) return "submitUrl は https:// で始まる URL にしてください。";
   if(c.useToken && !c.submitUrl) return "useToken を true にするときは、submitUrl も必要です（受験票番号をサーバーで照合するため）。";
   if(c.requirePinAfter != null && !(Number.isInteger(c.requirePinAfter) && c.requirePinAfter >= 0)) return "requirePinAfter は 0 以上の整数にしてください（0 なら暗証番号を求めない）。";
   if(c.endsAt != null && c.endsAt !== "" && !isFinite(parseEnds(c.endsAt))) return "endsAt（全体の終了時刻）は \"2026-11-10T10:50\" の形で書いてください。";
-  if(!Array.isArray(c.questions) || !c.questions.length) return "questions に問題がありません。";
+  if(!Array.isArray(c.questions) || !c.questions.length) return "問題がありません。「3　問題」で追加してください。";
   const ids = new Set();
   for(const [i, q] of c.questions.entries()){
-    const n = `問${i + 1}`;
+    const n = `#${i + 1}（${(q && TYPE_NAMES[q.type]) || "問題"}）`;
     if(!q || typeof q !== "object" || !/^[A-Za-z0-9_]{1,30}$/.test(q.id || "")) return `${n}：id は半角英数字で書いてください。`;
     if(ids.has(q.id)) return `${n}：id「${q.id}」が重複しています。`;
     ids.add(q.id);
-    if(!["choice", "multi", "number", "text"].includes(q.type)) return `${n}：type は choice / multi / number / text のどれかにしてください。`;
-    if(!q.text || typeof q.text !== "string") return `${n}：text（問題文）がありません。`;
+    if(!["choice", "multi", "number", "text", "info"].includes(q.type)) return `${n}：type は choice / multi / number / text / info のどれかにしてください。`;
+    if(q.type === "info"){ if(!(q.text || (q.media && q.media.length))) return `${n}：説明の文か教材を入れてください。`; }
+    else if(!q.text || typeof q.text !== "string") return `${n}：問題文を入れてください。`;
+    const me = validateMedia(q, n, ids);
+    if(me) return me;
     if(q.type === "choice" || q.type === "multi"){
-      if(!Array.isArray(q.options) || q.options.length < 2 || q.options.length > LABELS.length) return `${n}：options（選択肢）は 2〜${LABELS.length} 個にしてください。`;
-      if(q.options.some(o => typeof o !== "string" || !o)) return `${n}：options に空の選択肢があります。`;
+      if(!Array.isArray(q.options) || q.options.length < 2 || q.options.length > LABELS.length) return `${n}：選択肢は 2〜${LABELS.length} 個にしてください。`;
+      if(q.options.some(o => typeof o !== "string" || !o)) return `${n}：空の選択肢があります。入れるか、× で消してください。`;
     }
     if(q.maxLength != null && !(Number(q.maxLength) >= 1 && Number(q.maxLength) <= 20000)) return `${n}：maxLength は 1〜20000 にしてください。`;
   }
   return null;
 }
-function parseCfg(){
-  buildErr("");
-  let c;
-  try{ c = JSON.parse($("#b-json").value.replace(/^﻿/, "")); }
-  catch(e){ buildErr("JSON の書き方に誤りがあります：" + e.message); return null; }
-  const err = validate(c);
-  if(err){ buildErr(err); return null; }
-  return c;
+// 教材ファイル（作成画面で読み込んだもの）
+const BUILD_FILES = new Map();
+const MEDIA_TYPES = { html: "text/html", htm: "text/html", mp4: "video/mp4", m4v: "video/mp4", webm: "video/webm", mov: "video/quicktime",
+                      png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", gif: "image/gif", svg: "image/svg+xml", webp: "image/webp" };
+function typeOf(name){ return MEDIA_TYPES[(name.split(".").pop() || "").toLowerCase()] || ""; }
+function mb(n){ return (n / 1048576).toFixed(n < 1048576 ? 2 : 1) + " MB"; }
+function showFiles(){
+  const list = $("#b-assets-list"); list.innerHTML = "";
+  let total = 0;
+  BUILD_FILES.forEach((f, name) => {
+    total += f.bytes.length;
+    const li = document.createElement("li");
+    const warn = f.type === "video/quicktime" ? '　<span class="warn">（.mov は Chromebook で再生できないことがあります。mp4（H.264）に変換してください）</span>' : "";
+    li.innerHTML = `${esc(name)}　${mb(f.bytes.length)}${warn}　<button type="button" class="linkish" data-rm="${esc(name)}">外す</button>`;
+    list.appendChild(li);
+  });
+  $("#b-assets-sum").textContent = BUILD_FILES.size ? `${BUILD_FILES.size} 個　合計 ${mb(total)}` : "まだありません。問題に付ける動画・アプリ・図を、ここでまとめて追加します。";
+}
+function validateMedia(q, n, ids){
+  if(q.media == null) return null;
+  if(!Array.isArray(q.media)) return `${n}：media は [ ] で書いてください。`;
+  for(const [j, m] of q.media.entries()){
+    const w = `${n} の教材 ${j + 1}（${KIND_NAMES[m && m.kind] || "?"}）`;
+    if(!m || !["app", "video", "image", "sheet"].includes(m.kind)) return `${w}：kind は app / video / image / sheet のどれかにしてください。`;
+    if(m.kind === "sheet"){
+      if(!/^[A-Za-z0-9_]{1,30}$/.test(m.id || "")) return `${w}：表計算の id は半角英数字で書いてください（提出の列名になります）。`;
+      if(ids.has(m.id)) return `${w}：id「${m.id}」がほかの問題や表計算と重複しています。`;
+      ids.add(m.id);
+      if(!Array.isArray(m.columns) || !m.columns.length || m.columns.length > 12) return `${w}：列は 1〜12 個にしてください。`;
+      const names = new Set();
+      for(const c of m.columns){
+        if(!c || !COLNAME.test(c.name || "")) return `${w}：列の記号「${c && c.name}」は、ローマ字かギリシャ文字で 6 文字までにしてください（数字は使えません）。`;
+        if(names.has(c.name)) return `${w}：列の記号「${c.name}」が重複しています。`;
+        if(FUNC_NAMES.includes(c.name.toUpperCase())) return `${w}：列の記号「${c.name}」は関数の名前なので使えません。`;
+        names.add(c.name);
+      }
+      if(m.data != null && !(Array.isArray(m.data) && m.data.every(Array.isArray))) return `${w}：data は [[0, 0.00], [0.1, 0.05]] のように行ごとの配列で書いてください。`;
+      if(m.data && m.data.length > 100) return `${w}：data は 100 行までです。`;
+      if(m.rows != null && !(Number(m.rows) >= 1 && Number(m.rows) <= 100)) return `${w}：rows は 1〜100 にしてください。`;
+      continue;
+    }
+    if(!m.file) return `${w}：ファイルを選んでください。`;
+    const f = BUILD_FILES.get(m.file);
+    if(!f) return `${w}：教材ファイル「${m.file}」がまだ追加されていません。「2　教材ファイル」で追加してください。`;
+    if(m.kind === "app" && f.type !== "text/html") return `${w}：app には .html のファイルを指定してください。`;
+    if(m.kind === "video" && !f.type.startsWith("video/")) return `${w}：video には動画ファイルを指定してください。`;
+    if(m.kind === "image" && !f.type.startsWith("image/")) return `${w}：image には画像ファイルを指定してください。`;
+    if(m.kind === "app" && m.answer != null){
+      if(!/^[A-Za-z0-9_]{1,30}$/.test(m.answer)) return `${w}：answer は半角英数字で書いてください。`;
+      if(ids.has(m.answer)) return `${w}：answer「${m.answer}」がほかと重複しています。`;
+      ids.add(m.answer);
+    }
+  }
+  return null;
 }
 // 送信先が正しく設置されているか（全員に公開・スプレッドシートに結び付いている・版が合う）を確かめる
 async function testServer(url){
@@ -1119,13 +1984,26 @@ async function build(){
     btn.textContent = "作成しています…";
     const salt = rand(16), iv = rand(12), pinSalt = rand(16);
     const key = await aesKey(code, salt, KDF_ITER, ["encrypt"]);
-    const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, te.encode(JSON.stringify({ questions: c.questions }))));
+    // 教材は、使っているものだけを1つにまとめて、同じ鍵で暗号化する
+    const used = [...new Set(c.questions.flatMap(q => (q.media || []).filter(m => m.kind !== "sheet").map(m => m.file)))];
+    const index = {}; let off = 0;
+    used.forEach(name => { const f = BUILD_FILES.get(name); index[name] = { off, len: f.bytes.length, type: f.type }; off += f.bytes.length; });
+    const blob = new Uint8Array(off);
+    used.forEach(name => blob.set(BUILD_FILES.get(name).bytes, index[name].off));
+    let assetsB64 = "", assetsCfg = null;
+    if(off){
+      const iv2 = rand(12);
+      const ct2 = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv: iv2 }, key, blob));
+      assetsB64 = toB64(ct2); assetsCfg = { iv: toB64(iv2), size: ct2.length };
+    }
+    const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, te.encode(JSON.stringify({ questions: c.questions, assets: index }))));
     const cfg = {
       v: APP_VERSION, id: c.id, title: c.title, durationMin: Number(c.durationMin),
       submitUrl: c.submitUrl || "", useToken: !!c.useToken, shuffleOptions: !!c.shuffleOptions,
       requirePinAfter: c.requirePinAfter == null ? 2 : Number(c.requirePinAfter),
       endsAt: c.endsAt ? parseEnds(c.endsAt) : 0,
-      nQ: c.questions.length, builtAt: new Date().toISOString(),
+      nQ: c.questions.filter(q => q.type !== "info").length, builtAt: new Date().toISOString(),
+      assets: assetsCfg,
       kdf: { salt: toB64(salt), iter: KDF_ITER },
       sealed: { iv: toB64(iv), ct: toB64(ct) },
       pin: { salt: toB64(pinSalt), iter: PIN_ITER, hash: toHex(await pbkdf2(pin, pinSalt, PIN_ITER)) }
@@ -1133,7 +2011,12 @@ async function build(){
     const json = JSON.stringify(cfg).replace(/</g, "\\u003c");
     const B = "/*CONFIG-" + "BEGIN*/", E = "/*CONFIG-" + "END*/";
     const src = await templateSource();
-    const html = "<!doctype html>\n" + src.replace(/\/\*CONFIG-BEGIN\*\/[\s\S]*?\/\*CONFIG-END\*\//, () => B + json + E);
+    const AS = '<script type="application/octet-stream" id="sealed-assets">', AE = "<" + "/script>";
+    const html = "<!doctype html>\n" + src
+      .replace(/\/\*CONFIG-BEGIN\*\/[\s\S]*?\/\*CONFIG-END\*\//, () => B + json + E)
+      .replace(/<script type="application\/octet-stream" id="sealed-assets">[^<]*<\/script>/, () => AS + assetsB64 + AE);
+    const size = new Blob([html]).size;
+    if(size > 95 * 1048576) return buildErr(`試験ファイルが ${mb(size)} になりました。GitHub Pages に置けるのは 100 MB までです。動画を短く・小さくしてください。`);
     const name = `exam-${c.id}.html`;
     saveFile(html, name, "text/html");
     const r = $("#b-result");
@@ -1142,22 +2025,411 @@ async function build(){
       <dt>開始コード</dt><dd class="big" id="b-out-code">${fmtCode(code)}</dd>
       <dt>暗証番号</dt><dd class="big" id="b-out-pin">${pin}</dd></dl>
       <p style="margin:0 0 6px">開始コードと暗証番号はファイルに入っていません。必ず控えてください。クラスや日によって試験を分けるときは、そのたびに作り直してコードを変えてください。</p>
+      <p style="margin:0 0 6px">ファイルの大きさ：${mb(size)}${used.length ? `（教材 ${used.length} 個を含む）` : ""}</p>
+      ${size > 24 * 1048576 ? `<p class="notice" style="margin:0 0 6px">GitHub のブラウザからのアップロードは 25 MB までです。これより大きいと Web 画面から上げられないので、動画を小さくしてください。</p>` : ""}
+      ${size > 15 * 1048576 ? `<p class="notice" style="margin:0 0 6px">生徒の端末が試験ページを開くとき、このファイルを丸ごと読み込みます。クラス全員が開くので、試験の前（休み時間など）に開かせておくと安心です。</p>` : ""}
       ${c.submitUrl ? "" : '<p class="notice" style="margin:0">送信先（submitUrl）がないので、回答は各端末にしか残りません。回収には、端末ごとに「データを保存」が必要です。</p>'}`;
     r.hidden = false;
   }finally{
     btn.disabled = false; btn.textContent = "暗号化して試験ファイルを保存する";
   }
 }
+/* ---------- 問題エディタ（フォームで作る） ---------- */
+const DRAFT_KEY = "exam-builder-draft";
+const TYPE_NAMES = { info: "大問の説明", choice: "1つ選ぶ", multi: "すべて選ぶ", number: "数値", text: "記述" };
+const KIND_NAMES = { app: "アプリ", video: "動画", image: "図", sheet: "表計算" };
+let ED = null;                 // 編集中の試験（問題の JSON と同じ形）
+let jsonMode = false;
+
+function autoExamId(){
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  return `exam-${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${randCode(3).toLowerCase()}`;
+}
+function blankExam(){
+  return { id: autoExamId(), title: "", durationMin: 50, submitUrl: "", useToken: false, requirePinAfter: 2,
+           shuffleOptions: false, endsAt: "", questions: [] };
+}
+function allIds(){
+  const s = new Set();
+  ED.questions.forEach(q => {
+    if(q.id) s.add(q.id);
+    (q.media || []).forEach(m => { if(m.kind === "sheet" && m.id) s.add(m.id); if(m.kind === "app" && m.answer) s.add(m.answer); });
+  });
+  return s;
+}
+function nextId(prefix){ const s = allIds(); let n = 1; while(s.has(prefix + n)) n++; return prefix + n; }
+function newQuestion(type){
+  const q = { id: nextId(type === "info" ? "intro" : "q"), type, text: "" };
+  return fitType(q, type);
+}
+// 答え方を変えたとき、必要な項目をそろえる（問題文・配点・教材はそのまま）。
+// fill が false のとき（ファイルを開いたとき）は、配点や文字数の上限などの決まった値を勝手に入れない
+function fitType(q, type, fill = true){
+  q.type = type;
+  if(type === "info"){ if(q.title == null) q.title = ""; }
+  else if(fill && q.points == null) q.points = type === "text" ? 10 : 5;
+  if((type === "choice" || type === "multi") && !Array.isArray(q.options)) q.options = ["", "", "", ""];
+  if(type === "number"){ if(q.label == null) q.label = ""; if(q.unit == null) q.unit = ""; }
+  if(type === "text" && fill){ if(q.rows == null) q.rows = 4; if(q.maxLength == null) q.maxLength = 800; }
+  return q;
+}
+function newMedia(kind){
+  if(kind === "sheet") return { kind, id: nextId("s"), rows: 10, columns: [{ name: "t", unit: "s" }, { name: "x", unit: "m" }], data: [], lock: true };
+  if(kind === "app") return { kind, file: "", height: 480 };
+  if(kind === "video") return { kind, file: "", fps: 30 };
+  return { kind, file: "" };
+}
+// 編集中の内容から、試験ファイルを作るための設定を取り出す（その答え方で使う項目だけを残す）
+function cleanCfg(src){
+  const num = v => v === "" || v == null || !isFinite(Number(v)) ? undefined : Number(v);
+  const c = {
+    id: String(src.id || "").trim(), title: String(src.title || "").trim(), durationMin: num(src.durationMin),
+    submitUrl: String(src.submitUrl || "").trim(), useToken: !!src.useToken,
+    requirePinAfter: num(src.requirePinAfter) ?? 2, shuffleOptions: !!src.shuffleOptions, endsAt: String(src.endsAt || ""),
+    questions: []
+  };
+  (src.questions || []).forEach(q => {
+    const o = { id: q.id, type: q.type, text: String(q.text || "") };
+    if(q.type === "info"){ if(q.title) o.title = q.title; }
+    else if(num(q.points) != null) o.points = num(q.points);
+    if(q.type === "choice" || q.type === "multi"){ o.options = (q.options || []).map(x => String(x)); if(q.shuffle === false) o.shuffle = false; }
+    if(q.type === "number"){ o.label = q.label || ""; o.unit = q.unit || ""; }
+    if(q.type === "text"){ if(num(q.rows) != null) o.rows = num(q.rows); if(num(q.maxLength) != null) o.maxLength = num(q.maxLength); }
+    const media = (q.media || []).map(m => {
+      if(m.kind === "sheet"){
+        const s = { kind: "sheet", id: m.id, rows: num(m.rows) ?? 10, columns: (m.columns || []).map(c => ({ name: String(c.name || "").trim(), unit: String(c.unit || "").trim() })) };
+        if(Array.isArray(m.data) && m.data.length) s.data = m.data;
+        if(m.lock) s.lock = true;
+        if(m.graph === false) s.graph = false;
+        return s;
+      }
+      const x = { kind: m.kind, file: m.file || "" };
+      if(m.kind === "app"){ x.height = num(m.height) ?? 480; if(m.answer) x.answer = m.answer; if(m.allowSameOrigin) x.allowSameOrigin = true; }
+      if(m.kind === "video"){ x.fps = num(m.fps) ?? 30; if(m.muted === false) x.muted = false; }
+      if(m.kind === "image" && num(m.width) != null) x.width = num(m.width);
+      return x;
+    });
+    if(media.length) o.media = media;
+    c.questions.push(o);
+  });
+  return c;
+}
+// 読み込んだ JSON を、エディタで扱える形にそろえる
+function loadExam(obj){
+  if(!obj || typeof obj !== "object" || Array.isArray(obj)) throw new Error("JSON の一番外側は { } にしてください。");
+  const e = Object.assign(blankExam(), obj);
+  e.questions = Array.isArray(obj.questions) ? obj.questions.map(q => Object.assign({}, q, { media: Array.isArray(q.media) ? q.media.map(m => Object.assign({}, m)) : undefined })) : [];
+  ED = e;
+  e.questions.forEach(q => {
+    if(!q.id) q.id = nextId(q.type === "info" ? "intro" : "q");
+    if(TYPE_NAMES[q.type]) fitType(q, q.type, false);
+    if(!q.media) delete q.media;
+  });
+  return e;
+}
+function dataToText(data){ return (data || []).map(r => (r || []).map(v => v == null ? "" : String(v)).join(", ")).join("\n"); }
+// 表計算ソフトから貼り付けたもの（タブ区切り）やコンマ区切りを、行ごとの配列にする
+function textToData(t){
+  return String(t).split(/\r?\n/).map(l => l.trim()).filter(l => l !== "").map(l =>
+    l.split(/\t|,/).map(v => {
+      const s = v.trim();
+      if(s === "") return null;
+      const n = normNum(s);
+      return /^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(n) ? n : s;    // 0.50 を 0.5 にしないよう、数も文字のまま持つ
+    }));
+}
+
+/* ---------- 描画 ---------- */
+function fileOptions(kind, cur){
+  const want = kind === "app" ? t => t === "text/html" : kind === "video" ? t => t.startsWith("video/") : t => t.startsWith("image/");
+  const names = [...BUILD_FILES.entries()].filter(([, f]) => want(f.type)).map(([n]) => n);
+  let html = `<option value="">（選ぶ）</option>`;
+  if(cur && !names.includes(cur)) html += `<option value="${esc(cur)}" selected>${esc(cur)}（まだ追加されていません）</option>`;
+  names.forEach(n => { html += `<option value="${esc(n)}"${n === cur ? " selected" : ""}>${esc(n)}</option>`; });
+  return html;
+}
+function mediaEditor(m, mi){
+  const head = `<div class="b-mhead"><b>${KIND_NAMES[m.kind] || m.kind}</b>${m.kind === "sheet" ? `<span class="b-id">提出の列名 ${esc(m.id)}</span>` : ""}
+    <span class="b-qtools"><button type="button" data-act="mup" title="上へ">↑</button><button type="button" data-act="mdown" title="下へ">↓</button><button type="button" data-act="mdel">外す</button></span></div>`;
+  let body = "";
+  const file = `<label>ファイル<select data-m="file">${fileOptions(m.kind, m.file)}</select></label>`;
+  if(m.kind === "app"){
+    body = `<div class="b-row">${file}<label class="b-sm">高さ / px<input type="number" data-m="height" value="${esc(m.height ?? 480)}" min="120" max="2000"></label></div>
+      <label class="chk"><input type="checkbox" data-m="answerOn"${m.answer ? " checked" : ""}>アプリから解答を受け取る${m.answer ? `（提出の列名 ${esc(m.answer)}）` : ""}</label>
+      <label class="chk"><input type="checkbox" data-m="allowSameOrigin"${m.allowSameOrigin ? " checked" : ""}>アプリの保存機能（localStorage）を使えるようにする</label>`;
+  }else if(m.kind === "video"){
+    body = `<div class="b-row">${file}<label class="b-sm">1 秒のコマ数（fps）<input type="number" data-m="fps" value="${esc(m.fps ?? 30)}" min="1" max="1000"></label></div>
+      <label class="chk"><input type="checkbox" data-m="sound"${m.muted === false ? " checked" : ""}>音を出す</label>`;
+  }else if(m.kind === "image"){
+    body = `<div class="b-row">${file}<label class="b-sm">表示の幅 / px（空欄なら元の大きさ）<input type="number" data-m="width" value="${esc(m.width ?? "")}" min="20" max="2000"></label></div>`;
+  }else if(m.kind === "sheet"){
+    const cols = (m.columns || []).map((c, ci) => `<span class="b-col"><input data-cn="${ci}" value="${esc(c.name)}" placeholder="記号" maxlength="6" aria-label="列の記号"><input data-cu="${ci}" value="${esc(c.unit)}" placeholder="単位" maxlength="12" aria-label="列の単位"><button type="button" data-act="cdel" data-ci="${ci}" title="この列を消す">×</button></span>`).join("");
+    body = `<div class="b-row"><span class="b-lbl">列（記号と単位）</span>${cols}<button type="button" data-act="cadd">列を追加</button></div>
+      <div class="b-row"><label class="b-sm">行数<input type="number" data-m="rows" value="${esc(m.rows ?? 10)}" min="1" max="100"></label>
+      <label class="chk"><input type="checkbox" data-m="lock"${m.lock ? " checked" : ""}>あらかじめ入れたデータは書き換えられないようにする</label>
+      <label class="chk"><input type="checkbox" data-m="graphOff"${m.graph === false ? " checked" : ""}>グラフを出さない</label></div>
+      <label class="b-full">あらかじめ入れておくデータ（1 行に 1 行分。列はコンマかタブで区切る。表計算ソフトからそのまま貼り付けられる。空けておく列は空欄に）
+        <textarea data-m="dataText" rows="4" spellcheck="false">${esc(dataToText(m.data))}</textarea></label>`;
+  }
+  return `<div class="b-m" data-mi="${mi}">${head}${body}</div>`;
+}
+function questionCard(q, i, no){
+  const info = q.type === "info";
+  const label = info ? "大問の説明" : `問${no}`;
+  const types = Object.entries(TYPE_NAMES).map(([k, v]) => `<option value="${k}"${k === q.type ? " selected" : ""}>${v}</option>`).join("");
+  let body = "";
+  if(q.type === "choice" || q.type === "multi"){
+    body = `<div class="b-opts"><span class="b-lbl">選択肢${q.type === "multi" ? "（あてはまるものをすべて選ぶ）" : ""}</span>` +
+      (q.options || []).map((o, oi) => `<div class="b-opt"><span class="b-mark">${LABELS[oi] || "?"}</span><input data-o="${oi}" value="${esc(o)}" placeholder="選択肢"><button type="button" data-act="oup" data-oi="${oi}" title="上へ">↑</button><button type="button" data-act="odel" data-oi="${oi}" title="消す">×</button></div>`).join("") +
+      `<div class="b-row"><button type="button" data-act="oadd">選択肢を追加</button>
+       <label class="chk"><input type="checkbox" data-k="noShuffle"${q.shuffle === false ? " checked" : ""}>この問題の選択肢は並べ替えない（「ア・イの両方」などがあるとき）</label></div></div>`;
+  }else if(q.type === "number"){
+    body = `<div class="b-row"><label>答えの前に出す文字（例 &lt;i&gt;v&lt;/i&gt; =）<input data-k="label" value="${esc(q.label || "")}"></label><label>単位（例 m/s）<input data-k="unit" value="${esc(q.unit || "")}"></label></div>`;
+  }else if(q.type === "text"){
+    body = `<div class="b-row"><label class="b-sm">解答欄の行数（空欄なら 5）<input type="number" data-k="rows" value="${esc(q.rows ?? "")}" min="1" max="30"></label><label class="b-sm">文字数の上限（空欄なら 4000）<input type="number" data-k="maxLength" value="${esc(q.maxLength ?? "")}" min="1" max="20000"></label></div>`;
+  }
+  return `<div class="b-q" data-qi="${i}">
+    <div class="b-qhead"><span class="b-no">${label}</span><select data-k="type" aria-label="答え方">${types}</select>${info ? "" : `<span class="b-id" title="スプレッドシートの「提出」シートの列名">列名 ${esc(q.id)}</span>`}
+      ${info ? "" : `<label class="b-pts">配点<input type="number" data-k="points" value="${esc(q.points ?? "")}" min="0" max="1000"></label>`}
+      <span class="b-qtools"><button type="button" data-act="up" title="上へ">↑</button><button type="button" data-act="down" title="下へ">↓</button><button type="button" data-act="dup">複製</button><button type="button" data-act="preview">プレビュー</button><button type="button" data-act="del" class="b-danger">削除</button></span></div>
+    ${info ? `<label class="b-full">見出し（例 大問1　台車の運動）<input data-k="title" value="${esc(q.title || "")}"></label>` : ""}
+    <div class="b-fmt"><span class="b-lbl">${info ? "説明の文" : "問題文"}</span><button type="button" data-fmt="i" title="選んだ文字を斜体に（物理量の記号）"><i>斜体</i></button><button type="button" data-fmt="sub">下付き</button><button type="button" data-fmt="sup">上付き</button><button type="button" data-fmt="br">改行</button></div>
+    <textarea data-k="text" rows="3" spellcheck="false">${esc(q.text || "")}</textarea>
+    <div class="b-live" aria-label="試験での見え方">${q.text || ""}</div>
+    ${body}
+    <div class="b-media">${(q.media || []).map(mediaEditor).join("")}</div>
+    <div class="b-madd"><span class="b-lbl">教材を付ける：</span><button type="button" data-madd="app">アプリ</button><button type="button" data-madd="video">動画</button><button type="button" data-madd="image">図</button><button type="button" data-madd="sheet">表計算</button></div>
+    <div class="b-qprev"></div>
+  </div>`;
+}
+function renderEditor(){
+  let no = 0;
+  $("#b-qs").innerHTML = ED.questions.length
+    ? ED.questions.map((q, i) => questionCard(q, i, q.type === "info" ? 0 : ++no)).join("")
+    : `<p class="note b-empty">まだ問題がありません。下のボタンで追加してください。「問題ファイルを開く」で、保存しておいた問題や見本（exam-sample.json）を開くこともできます。</p>`;
+}
+function renderSettings(){
+  document.querySelectorAll("#b-settings [data-s]").forEach(el => {
+    const v = ED[el.dataset.s];
+    if(el.type === "checkbox") el.checked = !!v; else el.value = v ?? "";
+  });
+}
+function renderAll(){ renderSettings(); renderEditor(); if(jsonMode) $("#b-json").value = JSON.stringify(cleanCfg(ED), null, 2); }
+
+/* ---------- 下書き ---------- */
+let draftTimer = null;
+function changed(){
+  skipCheck = false;
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => {
+    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(ED)); }catch(e){}
+    draftNote(true);
+  }, 400);
+}
+function draftNote(saved){
+  $("#b-draft-note").innerHTML = saved || localStorage.getItem(DRAFT_KEY)
+    ? `下書き（問題文を含む）は、このブラウザに自動で保存されています。共用の PC では、作業が終わったら<button type="button" class="linkish" id="b-clear-draft">下書きを消す</button>を押してください。`
+    : "";
+}
+
+/* ---------- 入力の受け取り ---------- */
+function cardOf(el){ const c = el.closest(".b-q"); return c ? { card: c, q: ED.questions[Number(c.dataset.qi)], qi: Number(c.dataset.qi) } : null; }
+function mediaOf(el, q){ const b = el.closest(".b-m"); return b && q.media ? { m: q.media[Number(b.dataset.mi)], mi: Number(b.dataset.mi) } : null; }
+function onEditorInput(e){
+  const el = e.target, at = cardOf(el);
+  if(!at) return;
+  const q = at.q, numv = v => v === "" ? undefined : Number(v);
+  if(el.dataset.k){
+    const k = el.dataset.k;
+    if(k === "type"){ fitType(q, el.value); renderEditor(); changed(); return; }
+    if(k === "noShuffle"){ if(el.checked) q.shuffle = false; else delete q.shuffle; }
+    else if(k === "text"){ q.text = el.value; at.card.querySelector(".b-live").innerHTML = q.text; }
+    else if(["points", "rows", "maxLength"].includes(k)) q[k] = numv(el.value);
+    else q[k] = el.value;
+  }else if(el.dataset.o != null){
+    q.options[Number(el.dataset.o)] = el.value;
+  }else{
+    const mm = mediaOf(el, q);
+    if(!mm) return;
+    const m = mm.m;
+    if(el.dataset.cn != null) m.columns[Number(el.dataset.cn)].name = el.value.normalize("NFKC").trim();
+    else if(el.dataset.cu != null) m.columns[Number(el.dataset.cu)].unit = el.value.trim();
+    else{
+      const k = el.dataset.m;
+      if(k === "file") m.file = el.value;
+      else if(["height", "fps", "width", "rows"].includes(k)) m[k] = numv(el.value);
+      else if(k === "answerOn"){ if(el.checked) m.answer = m.answer || nextId("app"); else delete m.answer; renderEditor(); }
+      else if(k === "allowSameOrigin"){ if(el.checked) m.allowSameOrigin = true; else delete m.allowSameOrigin; }
+      else if(k === "sound"){ if(el.checked) m.muted = false; else delete m.muted; }
+      else if(k === "lock") m.lock = el.checked;
+      else if(k === "graphOff"){ if(el.checked) m.graph = false; else delete m.graph; }
+      else if(k === "dataText") m.data = textToData(el.value);
+    }
+  }
+  changed();
+}
+function move(arr, i, d){ const j = i + d; if(j < 0 || j >= arr.length) return false; [arr[i], arr[j]] = [arr[j], arr[i]]; return true; }
+function onEditorClick(e){
+  const b = e.target.closest("button"); if(!b) return;
+  const at = cardOf(b); if(!at) return;
+  const { q, qi, card } = at;
+  // 書式ボタン：問題文で選んでいる文字を、斜体・下付き・上付きにする
+  if(b.dataset.fmt){
+    const ta = card.querySelector('textarea[data-k="text"]');
+    const s = ta.selectionStart, t = ta.selectionEnd, sel = ta.value.slice(s, t), f = b.dataset.fmt;
+    const ins = f === "br" ? "<br>" : `<${f}>${sel}</${f}>`;
+    ta.value = ta.value.slice(0, s) + ins + ta.value.slice(t);
+    const caret = f === "br" ? s + 4 : sel ? s + ins.length : s + f.length + 2;
+    ta.focus(); ta.setSelectionRange(caret, caret);
+    q.text = ta.value; card.querySelector(".b-live").innerHTML = q.text; changed();
+    return;
+  }
+  if(b.dataset.madd){
+    q.media = q.media || [];
+    q.media.push(newMedia(b.dataset.madd));
+    renderEditor(); changed(); return;
+  }
+  const act = b.dataset.act, mm = mediaOf(b, q);
+  switch(act){
+    case "up": if(move(ED.questions, qi, -1)){ renderEditor(); changed(); } return;
+    case "down": if(move(ED.questions, qi, 1)){ renderEditor(); changed(); } return;
+    case "dup": {
+      const c = JSON.parse(JSON.stringify(q));
+      c.id = nextId(q.type === "info" ? "intro" : "q");
+      (c.media || []).forEach(m => { if(m.kind === "sheet") m.id = "__"; if(m.answer) m.answer = "__"; });
+      ED.questions.splice(qi + 1, 0, c);
+      (c.media || []).forEach(m => { if(m.kind === "sheet") m.id = nextId("s"); if(m.answer) m.answer = nextId("app"); });
+      renderEditor(); changed(); return;
+    }
+    case "del": {
+      const filled = q.text || (q.options || []).some(Boolean) || (q.media || []).length;
+      if(filled && !confirm("この問題を削除しますか？")) return;
+      ED.questions.splice(qi, 1); renderEditor(); changed(); return;
+    }
+    case "preview": {
+      const box = card.querySelector(".b-qprev");
+      if(box.childElementCount){ box.innerHTML = ""; return; }
+      previewInto(box, [cleanCfg({ questions: [q] }).questions[0]]);
+      return;
+    }
+    case "oadd":
+      if(q.options.length >= LABELS.length) return buildErr(`選択肢は ${LABELS.length} 個までです。`);
+      q.options.push(""); renderEditor(); changed();
+      card.ownerDocument.querySelector(`.b-q[data-qi="${qi}"] input[data-o="${q.options.length - 1}"]`).focus();
+      return;
+    case "odel": q.options.splice(Number(b.dataset.oi), 1); renderEditor(); changed(); return;
+    case "oup": if(move(q.options, Number(b.dataset.oi), -1)){ renderEditor(); changed(); } return;
+    case "mup": if(mm && move(q.media, mm.mi, -1)){ renderEditor(); changed(); } return;
+    case "mdown": if(mm && move(q.media, mm.mi, 1)){ renderEditor(); changed(); } return;
+    case "mdel": if(mm){ q.media.splice(mm.mi, 1); if(!q.media.length) delete q.media; renderEditor(); changed(); } return;
+    case "cadd": if(mm){ if(mm.m.columns.length >= 12) return buildErr("列は 12 個までです。"); mm.m.columns.push({ name: "", unit: "" }); renderEditor(); changed(); } return;
+    case "cdel": if(mm){ mm.m.columns.splice(Number(b.dataset.ci), 1); renderEditor(); changed(); } return;
+  }
+}
+function previewInto(box, qs){
+  QUESTIONS = qs;
+  renderQuestions(box, qs);                              // プレビューは元の順番のまま
+  const files = {}; BUILD_FILES.forEach((f, name) => { files[name] = f; });
+  mountMedia(box, qs, assetProvider(files), null);
+}
+// 検証で見つかった問題のカードに印を付けて、そこまで動かす
+function markError(msg){
+  document.querySelectorAll(".b-q.b-err").forEach(c => c.classList.remove("b-err"));
+  const m = /^#(\d+)/.exec(msg || "");
+  if(!m) return;
+  const card = document.querySelector(`.b-q[data-qi="${Number(m[1]) - 1}"]`);
+  if(card){ card.classList.add("b-err"); card.scrollIntoView({ block: "center", behavior: "smooth" }); }
+}
+// いまの内容（フォーム、または JSON 欄）から設定を取り出して確かめる
+function parseCfg(){
+  buildErr(""); markError("");
+  if(jsonMode && !applyJson()) return null;
+  const c = cleanCfg(ED);
+  const err = validate(c);
+  if(err){ buildErr(err); markError(err); return null; }
+  return c;
+}
+function applyJson(){
+  const before = JSON.stringify(cleanCfg(ED));
+  try{ loadExam(JSON.parse($("#b-json").value.replace(/^﻿/, ""))); }
+  catch(e){ buildErr("JSON の書き方に誤りがあります：" + e.message); return false; }
+  renderSettings(); renderEditor();
+  // 中身が変わったときだけ「変更あり」にする（変えていないのに送信先の確認をやり直さないため）
+  if(JSON.stringify(cleanCfg(ED)) !== before) changed();
+  return true;
+}
 function initBuild(){
   document.title = "試験ファイルの作成";
   show("scr-build");
-  $("#b-sample").addEventListener("click", () => { $("#b-json").value = JSON.stringify(SKELETON, null, 2); skipCheck = false; });
-  $("#b-json").addEventListener("input", () => { skipCheck = false; });
-  $("#b-file").addEventListener("change", async e => { const f = e.target.files[0]; if(f){ $("#b-json").value = await f.text(); skipCheck = false; } });
-  $("#b-preview-btn").addEventListener("click", () => {
-    const c = parseCfg(); if(!c) return;
-    QUESTIONS = c.questions;
-    renderQuestions($("#b-preview"), c.questions);     // プレビューは元の順番のまま
+  let draft = null;
+  try{ draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); }catch(e){}
+  try{ if(draft) loadExam(draft); else ED = blankExam(); }catch(e){ ED = blankExam(); }
+  renderAll(); draftNote(false); showFiles();
+  $("#b-settings").addEventListener("input", e => {
+    const el = e.target, k = el.dataset.s; if(!k) return;
+    ED[k] = el.type === "checkbox" ? el.checked : el.type === "number" ? (el.value === "" ? undefined : Number(el.value)) : el.value;
+    changed();
+  });
+  $("#b-settings").addEventListener("change", e => { if(e.target.type === "checkbox") { ED[e.target.dataset.s] = e.target.checked; changed(); } });
+  $("#b-qs").addEventListener("input", onEditorInput);
+  $("#b-qs").addEventListener("change", e => { if(e.target.matches('select, input[type="checkbox"]')) onEditorInput(e); });
+  $("#b-qs").addEventListener("click", onEditorClick);
+  $("#b-add").addEventListener("click", e => {
+    const b = e.target.closest("[data-add]"); if(!b) return;
+    ED.questions.push(newQuestion(b.dataset.add)); renderEditor(); changed();
+    const cards = document.querySelectorAll(".b-q"), last = cards[cards.length - 1];
+    if(last){ last.scrollIntoView({ block: "center" }); last.querySelector('textarea[data-k="text"]').focus(); }
+  });
+  $("#b-new").addEventListener("click", () => {
+    if(ED.questions.length && !confirm("いまの内容を消して、新しく作りますか？（保存していない問題は消えます）")) return;
+    ED = blankExam(); try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+    renderAll(); draftNote(false); buildErr(""); $("#b-result").hidden = true;
+  });
+  $("#b-file").addEventListener("change", async e => {
+    const f = e.target.files[0]; e.target.value = "";
+    if(!f) return;
+    try{ loadExam(JSON.parse((await f.text()).replace(/^﻿/, ""))); }
+    catch(err){ return buildErr("問題ファイルを開けませんでした：" + err.message); }
+    buildErr(""); renderAll(); changed();
+  });
+  $("#b-save").addEventListener("click", () => {
+    const c = cleanCfg(ED);
+    saveFile(JSON.stringify(c, null, 2), `${c.id || "exam"}-問題.json`, "application/json");
+    buildErr("");
+    $("#b-err").innerHTML = '<span style="color:var(--warn)">問題ファイルには問題がそのまま入っています。生徒に配ったり GitHub に置いたりしないでください。</span>';
+  });
+  $("#b-jsonmode").addEventListener("click", () => {
+    jsonMode = !jsonMode;
+    $("#b-jsonbox").hidden = !jsonMode;
+    $("#b-jsonmode").textContent = jsonMode ? "JSON の編集を閉じる" : "JSON で編集";
+    if(jsonMode) $("#b-json").value = JSON.stringify(cleanCfg(ED), null, 2);
+  });
+  $("#b-json-apply").addEventListener("click", () => { if(applyJson()) buildErr(""); });
+  $("#b-draft-note").addEventListener("click", e => {
+    if(e.target.id !== "b-clear-draft") return;
+    try{ localStorage.removeItem(DRAFT_KEY); }catch(err){}
+    $("#b-draft-note").textContent = "下書きを消しました（いま表示している内容は残っています）。";
+  });
+  $("#b-preview-btn").addEventListener("click", () => { const c = parseCfg(); if(c) previewInto($("#b-preview"), c.questions); });
+  $("#b-files").addEventListener("change", async e => {
+    for(const f of e.target.files){
+      const type = typeOf(f.name);
+      if(!type){ buildErr(`「${f.name}」は使えない種類のファイルです（HTML・mp4・webm・png・jpg・gif・svg・webp）。`); continue; }
+      BUILD_FILES.set(f.name, { bytes: new Uint8Array(await f.arrayBuffer()), type });
+    }
+    e.target.value = ""; skipCheck = false; showFiles(); renderEditor();
+  });
+  $("#b-assets-list").addEventListener("click", e => {
+    const b = e.target.closest("[data-rm]"); if(!b) return;
+    BUILD_FILES.delete(b.dataset.rm); showFiles(); renderEditor();
+  });
+  $("#b-renum").addEventListener("click", () => {
+    let qn = 0, in_ = 0, sn = 0, an = 0;
+    ED.questions.forEach(q => {
+      q.id = q.type === "info" ? "intro" + (++in_) : "q" + (++qn);
+      (q.media || []).forEach(m => { if(m.kind === "sheet") m.id = "s" + (++sn); if(m.kind === "app" && m.answer) m.answer = "app" + (++an); });
+    });
+    renderEditor(); changed();
   });
   $("#b-build").addEventListener("click", build);
 }
